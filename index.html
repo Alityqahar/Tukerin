@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tukerin - Platform Pertukaran Barang Bekas Sekolah</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/main.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="icon" href="./assets/img/logo1.png" type="image/png">
+    <style>
+      html, body {
+        overflow-x: hidden !important;
+      }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" role="navigation" aria-label="Main navigation">
+        <div class="container">
+          <a class="navbar-brand" href="#beranda" aria-label="SekolahHub Home">
+            <img src="assets/img/logo1.png" style="width: 40px;">
+            Tukerin
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto align-items-center">
+              <li class="nav-item">
+                <a class="nav-link" href="#beranda" id="nav-beranda"><i class="fas fa-home me-1"></i> Beranda</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#kategori" id="nav-kategori"><i class="fas fa-search me-1"></i> Cari</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#leaderboard" id="nav-leaderboard"><i class="fas fa-trophy me-1"></i> Leaderboard</a>
+              </li>
+            </ul>
+            <ul class="navbar-nav ms-3">
+              <li class="nav-item">
+                <button class="nav-link mt-2" id="cartBtn" >
+                  <i class="fas fa-shopping-cart fa-lg text-white"></i>
+                  <span class="badge bg-danger position-absolute rounded-pill" id="cartCount">0</span>
+                </button>
+              </li>
+              <li class="nav-item">
+                <!-- Ganti profil dengan MAN Insan Cendekia OKI dan jadikan tombol -->
+                <button class="nav-link d-flex align-items-center" id="profileDashboardBtn" type="button" style="background:none;border:none;">
+                  <img src="https://ui-avatars.com/api/?name=MAN+Insan+Cendekia+OKI&background=4a7c23&color=fff&rounded=true&size=32" alt="Profil Sekolah" width="32" height="32" class="rounded-circle me-2">
+                  <span class="d-none d-lg-inline">MAN Insan Cendekia OKI</span>
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+      <section id="beranda" class="hero-section" role="region" aria-label="Beranda">
+          <div class="hero-content">
+              <div class="container">
+                  <div class="row align-items-center">
+                      <div class="col-lg-6">
+                          <h1 class="display-4 fw-bold mb-4 animate-fade-in">Platform Pertukaran Barang Bekas Berbasis Sekolah</h1>
+                          <div style="font-size:1.3rem;min-height:2.2em;">
+                            <span id="heroTyping" style="border-right:2px solid #fff;padding-right:4px"></span>
+                          </div>
+                          <p class="lead mb-4 animate-fade-in delay-1">Bergabunglah dengan revolusi ekonomi sirkular di dunia pendidikan. Tukar barang bekas layak pakai antar sekolah se-Indonesia dan pantau dampak lingkungan secara real-time!</p>
+                          <div class="d-flex flex-wrap gap-3">
+                              <button class="btn btn-light btn-lg px-4" id="btnDaftarkanSekolah">
+                                  <i class="fas fa-school me-2"></i>
+                                  Daftarkan Sekolah
+                              </button>
+                              <button class="btn btn-outline-light btn-lg px-4 dasb" id="btnLihatDashboard">
+                                  <i class="fas fa-chart-line me-2"></i>
+                                  Lihat Dashboard
+                              </button>
+                          </div>
+                      </div>
+                      <div class="col-lg-6 text-center">
+                          <div class="eco-score-display">
+                              <div class="tree-visual">
+                                  <i class="fas fa-tree"></i>
+                              </div>
+                              <h3>Eco-Score Nasional</h3>
+                              <h2 class="display-3 fw-bold" id="ecoScoreValue">24,750</h2>
+                              <p>Setara dengan 247 pohon terselamatkan</p>
+                              <div class="progress-eco">
+                                  <div class="progress-fill"></div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </section>
+
+      <!-- Stats Overview -->
+      <section class="py-5">
+          <div class="container">
+              <!-- Map Section -->
+              <div class="col-lg-8">
+                  <div class="map-container">
+                  <div class="p-3 border-bottom bg-light">
+                      <h4 class="fw-bold mb-1 text-dark">
+                      <i class="fas fa-map-marked-alt me-2 text-success"></i>
+                      Peta Partisipasi Sekolah Se-Indonesia
+                      </h4>
+                      <p class="text-muted mb-0">Real-time tracking sekolah yang berpartisipasi</p>
+                  </div>
+                  <div id="mapid"></div>
+                  </div>
+              </div>
+              <div class="stats-grid">
+                  <div class="stat-card">
+                      <i class="fas fa-school fa-3x text-success mb-3"></i>
+                      <h3 class="fw-bold text-success">1,247</h3>
+                      <p class="mb-0">Sekolah Terdaftar</p>
+                  </div>
+                  <div class="stat-card">
+                      <i class="fas fa-exchange-alt fa-3x text-dangerbtn-danger mb-3"></i>
+                      <h3 class="fw-bold text-dangerbtn-danger">15,832</h3>
+                      <p class="mb-0">Barang Ditukar</p>
+                  </div>
+                  <div class="stat-card">
+                      <i class="fas fa-leaf fa-3x text-primary mb-3"></i>
+                      <h3 class="fw-bold text-primary">8.2 Ton</h3>
+                      <p class="mb-0">CO₂ Dikurangi</p>
+                  </div>
+                  <div class="stat-card">
+                      <i class="fas fa-users fa-3x text-info mb-3"></i>
+                      <h3 class="fw-bold text-info">47,593</h3>
+                      <p class="mb-0">Siswa Aktif</p>
+                  </div>
+              </div>
+          </div>
+      </section>
+
+      <!-- Features Section -->
+  <!-- Features Section -->
+  <section class="py-5">
+      <div class="container">
+          <div class="text-center mb-5">
+              <h2 class="display-5 fw-bold">Fitur Utama Tukerin</h2>
+              <p class="lead text-muted">Platform lengkap untuk mendukung ekonomi sirkular di sekolah</p>
+          </div>
+          <div class="row">
+              <div class="col-lg-4 col-md-6" style="margin-bottom: 15px;">
+                  <div class="feature-card text-center">
+                      <div class="feature-icon">
+                          <i class="fas fa-school"></i>
+                      </div>
+                      <h4 class="fw-bold">Sekolah Kontributor</h4>
+                      <p>Setiap pembelian barang bernilai satu bibit pohon untuk penghijauan lingkungan sekitar sekolah, menciptakan dampak nyata bagi bumi.</p>
+                  </div>
+              </div>
+              <div class="col-lg-4 col-md-6" style="margin-bottom: 15px;">
+                  <div class="feature-card text-center">
+                      <div class="feature-icon">
+                          <i class="fas fa-leaf"></i>
+                      </div>
+                      <h4 class="fw-bold">Eco-Score & Carbon Tracker</h4>
+                      <p>Pantau dampak lingkungan setiap transaksi dengan perhitungan CO₂ yang dikurangi dan setara pohon terselamatkan secara real-time.</p>
+                  </div>
+              </div>
+              <div class="col-lg-4 col-md-6" style="margin-bottom: 15px;">
+                  <div class="feature-card text-center">
+                      <div class="feature-icon">
+                          <i class="fas fa-robot"></i>
+                      </div>
+                      <h4 class="fw-bold">EcoBuddy AI</h4>
+                      <p>Asisten digital yang membantu pengguna mencari informasi barang, berkonsultasi tentang ekonomi sirkular, dan memandu penggunaan platform.</p>
+                  </div>
+              </div>
+              <div class="col-lg-4 col-md-6">
+                  <div class="feature-card text-center">
+                      <div class="feature-icon">
+                          <i class="fas fa-chart-bar"></i>
+                      </div>
+                      <h4 class="fw-bold">Dashboard Interaktif</h4>
+                      <p>Visualisasi data yang menarik dengan pohon virtual, peta partisipasi, dan statistik dampak lingkungan yang mudah dipahami.</p>
+                  </div>
+              </div>
+              <div class="col-lg-4 col-md-6">
+                  <div class="feature-card text-center">
+                      <div class="feature-icon">
+                          <i class="fas fa-medal"></i>
+                      </div>
+                      <h4 class="fw-bold">Sistem Reputasi</h4>
+                      <p>Sertifikat digital partisipasi siswa dan badge "Sekolah Hijau" untuk memotivasi partisipasi berkelanjutan.</p>
+                  </div>
+              </div>
+              <div class="col-lg-4 col-md-6">
+                  <div class="feature-card text-center">
+                      <div class="feature-icon">
+                          <i class="fas fa-truck"></i>
+                      </div>
+                      <h4 class="fw-bold">Logistik Terintegrasi</h4>
+                      <p>Sistem distribusi melalui titik kumpul sekolah seperti koperasi dan perpustakaan untuk kemudahan akses.</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>
+
+    <!-- Enhanced Category Section -->
+    <section id="kategori" class="category-section" role="region" aria-label="Kategori Barang">
+        <div class="container">
+            <!-- Search Container -->
+            <div class="search-container">
+                <div class="text-center mb-4">
+                    <h2 class="display-5 fw-bold mb-2">Temukan Barang Impianmu</h2>
+                    <p class="lead text-muted">Cari dari ribuan barang berkualitas dengan harga terjangkau</p>
+                </div>
+                <div class="search-box">
+                    <input type="text" class="search-input" id="searchInput" placeholder="Cari buku, seragam, alat musik, dan lainnya...">
+                    <button class="search-btn" id="searchBtn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Trending Products Section -->
+            <div class="trending-section">
+                <div class="trending-title">
+                    <div class="trending-icon">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <div>
+                        <h3 class="fw-bold mb-1">Produk Terlaris</h3>
+                        <p class="text-muted mb-0">Barang yang paling banyak dicari minggu ini</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="product-card" data-id="hot1" data-title="Buku Matematika Kelas 10" data-price="15000" data-img="./assets/img/BukuMTKKelas10.jpg" data-category="akademis">
+                            <div class="trending-badge">🔥 HOT</div>
+                            <div class="product-image">
+                                <img src="./assets/img/BukuMTKKelas10.jpg" alt="Buku Matematika Kelas 10">
+                            </div>
+                            <div class="product-content">
+                                <h5 class="fw-bold mb-2">Buku Matematika Kelas 10</h5>
+                                <p class="text-muted mb-2">Kondisi 95%, lengkap dengan kunci jawaban</p>
+                                <div class="product-price mb-2">Rp 15.000</div>
+                                <div class="text-info mb-1 fw-semibold"><i class="fas fa-school me-1"></i>MAN Insan Cendekia OKI</div>
+                                <div class="mb-3"><span class="badge bg-success">Stok: 3</span></div>
+                                <div class="d-flex gap-2">
+                                  <button class="add-to-cart">
+                                      <i class="fas fa-cart-plus me-2"></i>Tambah ke Keranjang
+                                    </button>
+                                    <button class="btn btn-outline-primary chat-seller-btn" data-seller="MAN Insan Cendekia OKI">
+                                      <i class="fas fa-comments me-1"></i>Chat Penjual
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="product-card" data-id="hot2" data-title="Seragam SMA Putih Abu" data-price="45000" data-img="./assets/img/SeragamSMAPutihAbu.jpg" data-category="seragam">
+                            <div class="trending-badge">⭐ BEST</div>
+                            <div class="product-image">
+                                <img src="./assets/img/SeragamSMAPutihAbu.jpg" alt="Seragam SMA Putih Abu">
+                            </div>
+                            <div class="product-content">
+                                <h5 class="fw-bold mb-2">Seragam SMA Putih Abu</h5>
+                                <p class="text-muted mb-2">Ukuran L, kondisi sangat baik, siap pakai</p>
+                                <div class="product-price mb-2">Rp 45.000</div>
+                                <div class="text-info mb-1 fw-semibold"><i class="fas fa-school me-1"></i>SMAN 1 Jakarta</div>
+                                <div class="mb-3"><span class="badge bg-success">Stok: 5</span></div>
+                                <div class="d-flex gap-2">
+                                  <button class="add-to-cart">
+                                      <i class="fas fa-cart-plus me-2"></i>Tambah ke Keranjang
+                                    </button>
+                                    <button class="btn btn-outline-primary chat-seller-btn" data-seller="SMAN 1 Jakarta">
+                                      <i class="fas fa-comments me-1"></i>Chat Penjual
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="product-card" data-id="hot3" data-title="Kalkulator Scientific" data-price="35000" data-img="./assets/img/KalkulatorScientific.jpg" data-category="akademis">
+                            <div class="trending-badge">💎 NEW</div>
+                            <div class="product-image">
+                                <img src="./assets/img/KalkulatorScientific.jpg" alt="Kalkulator Scientific">
+                            </div>
+                            <div class="product-content">
+                                <h5 class="fw-bold mb-2">Kalkulator Scientific</h5>
+                                <p class="text-muted mb-2">Casio fx-991ES Plus, kondisi 90%</p>
+                                <div class="product-price mb-2">Rp 35.000</div>
+                                <div class="text-info mb-1 fw-semibold"><i class="fas fa-school me-1"></i>SMPN 5 Surabaya</div>
+                                <div class="mb-3"><span class="badge bg-success">Stok: 7</span></div>
+                                <div class="d-flex gap-2">
+                                  <button class="add-to-cart">
+                                      <i class="fas fa-cart-plus me-2"></i>Tambah ke Keranjang
+                                    </button>
+                                    <button class="btn btn-outline-primary chat-seller-btn" data-seller="SMPN 5 Surabaya">
+                                      <i class="fas fa-comments me-1"></i>Chat Penjual
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="product-card" data-id="hot4" data-title="Gitar Akustik Yamaha" data-price="120000" data-img="./assets/img/GitarAkustikYamah.jpg" data-category="ekstrakurikuler">
+                            <div class="trending-badge">🎵 TOP</div>
+                            <div class="product-image">
+                                <img src="./assets/img/GitarAkustikYamah.jpg" alt="Gitar Akustik Yamaha">
+                            </div>
+                            <div class="product-content">
+                                <h5 class="fw-bold mb-2">Gitar Akustik Yamaha</h5>
+                                <p class="text-muted mb-2">F310, kondisi baik, suara jernih</p>
+                                <div class="product-price mb-2">Rp 120.000</div>
+                                <div class="text-info mb-1 fw-semibold"><i class="fas fa-school me-1"></i>SMAN 3 Bandung</div>
+                                <div class="mb-3"><span class="badge bg-success">Stok: 2</span></div>
+                                <div class="d-flex gap-2">
+                                  <button class="add-to-cart">
+                                      <i class="fas fa-cart-plus me-2"></i>Tambah ke Keranjang
+                                    </button>
+                                    <button class="btn btn-outline-primary chat-seller-btn" data-seller="SMAN 3 Bandung">
+                                      <i class="fas fa-comments me-1"></i>Chat Penjual
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Category Filter -->
+            <div class="category-filter">
+                <button class="category-filter-btn active" data-category="all">
+                    <span><i class="fas fa-th-large me-2"></i>Semua Produk</span>
+                </button>
+                <button class="category-filter-btn" data-category="akademis">
+                    <span><i class="fas fa-book me-2"></i>Akademis</span>
+                </button>
+                <button class="category-filter-btn" data-category="seragam">
+                    <span><i class="fas fa-tshirt me-2"></i>Seragam</span>
+                </button>
+                <button class="category-filter-btn" data-category="ekstrakurikuler">
+                    <span><i class="fas fa-music me-2"></i>Ekstrakurikuler</span>
+                </button>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <!-- Products by Category -->
+            <div id="productGroups">
+                <!-- Akademis Category -->
+                <div class="product-group" data-group="akademis">
+                    <div class="category-header">
+                        <div class="category-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div>
+                            <h3 class="fw-bold mb-1">Produk Akademis</h3>
+                            <p class="mb-0 opacity-75">Buku, alat tulis, dan perlengkapan belajar</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 mb-4">
+                            <div class="product-card" data-id="1" data-title="Buku Fisika SMA" data-price="18000" data-img="./assets/img/BukuFisikaSMA.jpg" data-category="akademis">
+                                <div class="product-image">
+                                    <img src="./assets/img/BukuFisikaSMA.jpg" alt="Buku Fisika SMA">
+                                </div>
+                                <div class="product-content">
+                                    <h5 class="fw-bold mb-2">Buku Fisika SMA</h5>
+                                    <p class="text-muted mb-2">Erlangga Kelas XI, kondisi baik 85%</p>
+                                    <div class="product-price mb-2">Rp 18.000</div>
+                                    <div class="text-info mb-1 fw-semibold"><i class="fas fa-school me-1"></i>MAN Insan Cendekia OKI</div>
+                                    <div class="mb-3"><span class="badge bg-success">Stok: 10</span></div>
+                                    <div class="d-flex gap-2">
+                                      <button class="add-to-cart">
+                                          <i class="fas fa-cart-plus me-2"></i>Tambah ke Keranjang
+                                      </button>
+                                      <button class="btn btn-outline-primary chat-seller-btn" data-seller="MAN Insan Cendekia OKI">
+                                        <i class="fas fa-comments me-1"></i>Chat Penjual
+                                      </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 mb-4">
+                            <div class="product-card" data-id="2" data-title="Atlas Indonesia" data-price="12000" data-img="./assets/img/AtlasIndonesia.jpg" data-category="akademis">
+                                <div class="product-image">
+                                    <img src="./assets/img/AtlasIndonesia.jpg" alt="Atlas Indonesia">
+                                </div>
+                                <div class="product-content">
+                                    <h5 class="fw-bold mb-2">Atlas Indonesia</h5>
+                                    <p class="text-muted mb-2">Peta lengkap Indonesia, kondisi 90%</p>
+                                    <div class="product-price mb-2">Rp 12.000</div>
+                                    <div class="text-info mb-1 fw-semibold"><i class="fas fa-school me-1"></i>SMAN 1 Jakarta</div>
+                                    <div class="mb-3"><span class="badge bg-success">Stok: 8</span></div>
+                                    <div class="d-flex gap-2">
+                                      <button class="add-to-cart">
+                                          <i class="fas fa-cart-plus me-2"></i>Tambah ke Keranjang
+                                      </button>
+                                      <button class="btn btn-outline-primary chat-seller-btn" data-seller="SMAN 1 Jakarta">
+                                        <i class="fas fa-comments me-1"></i>Chat Penjual
+                                      </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 mb-4">
+                            <div class="product-card" data-id="3" data-title="Kamus Bahasa Inggris" data-price="25000" data-img="./assets/img/Kamus Bahasa Inggris.jpg" data-category="akademis">
+                                <div class="product-image">
+                                    <img src="./assets/img/Kamus Bahasa Inggris.jpg" alt="Kamus Bahasa Inggris">
+                                </div>
+                                <div class="product-content">
+                                    <h5 class="fw-bold mb-2">Kamus Bahasa Inggris</h5>
+                                    <p class="text-muted mb-2">Oxford Dictionary, tebal 1200 halaman</p>
+                                    <div class="product-price mb-2">Rp 25.000</div>
+                                    <div class="text-info mb-1 fw-semibold"><i class="fas fa-school me-1"></i>SMPN 5 Surabaya</div>
+                                    <div class="mb-3"><span class="badge bg-success">Stok: 5</span></div>
+                                    <div class="d-flex gap-2">
+                                      <button class="add-to-cart">
+                                          <i class="fas fa-cart-plus me-2"></i>Tambah ke Keranjang
+                                      </button>
+                                      <button class="btn btn-outline-primary chat-seller-btn" data-seller="SMPN 5 Surabaya">
+                                        <i class="fas fa-comments me-1"></i>Chat Penjual
+                                      </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 mb-4">
+                            <div class="product-card" data-id="4" data-title="Set Alat Geometri" data-price="8000" data-img="./assets/img/SetAlatGeometri.jpg" data-category="akademis">
+                                <div class="product-image">
+                                    <img src="./assets/img/SetAlatGeometri.jpg" alt="Set Alat Geometri">
+                                </div>
+                                <div class="product-content">
+                                    <h5 class="fw-bold mb-2">Set Alat Geometri</h5>
+                                    <p class="text-muted mb-2">Jangka, penggaris, busur derajat lengkap</p>
+                                    <div class="product-price mb-2">Rp 8.000</div>
+                                    <div class="text-info mb-1 fw-semibold"><i class="fas fa-school me-1"></i>MAN Insan Cendekia OKI</div>
+                                    <div class="mb-3"><span class="badge bg-success">Stok: 15</span></div>
+                                    <div class="d-flex gap-2">
+                                      <button class="add-to-cart">
+                                          <i class="fas fa-cart-plus me-2"></i>Tambah ke Keranjang
+                                      </button>
+                                      <button class="btn btn-outline-primary chat-seller-btn" data-seller="MAN Insan Cendekia OKI">
+                                        <i class="fas fa-comments me-1"></i>Chat Penjual
+                                      </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Seragam Category -->
+                <div class="product-group" data-group="seragam">
+                    <div class="category-header">
+                        <div class="category-icon">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <div>
+                            <h3 class="fw-bold mb-1">Seragam Sekolah</h3>
+                            <p class="mb-0 opacity-75">Seragam harian, pramuka, dan olahraga</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 mb-4">
+                            <div class="product-card" data-id="5" data-title="Seragam Pramuka SMP" data-price="40000" data-img="./assets/img/SeragamPramuka.jpg" data-category="seragam">
+                                <div class="product-image">
+                                    <img src="./assets/img/SeragamPramuka.jpg" alt="Seragam Pramuka SMP">
+                                </div>
+                                <div class="product-content">
+                                    <h5 class="fw-bold mb-2">Seragam Pramuka SMP</h5>
+                                    <p class="text-muted mb-2">Ukuran M, lengkap dengan tanda pengenal</p>
+                                    <div class="product-price mb-2">Rp 40.000</div>
+                                    <div class="text-info mb-1 fw-semibold"><i class="fas fa-school me-1"></i>SMAN 1 Jakarta</div>
+                                    <div class="mb-3"><span class="badge bg-success">Stok: 4</span></div>
+                                    <div class="d-flex gap-2">
+                                      <button class="add-to-cart">
+                                        <i class="fas fa-cart-plus me-2"></i>Tambah ke Keranjang
+                                      </button>
+                                      <button class="btn btn-outline-primary chat-seller-btn" data-seller="SMAN 1 Jakarta">
+                                        <i class="fas fa-comments me-1"></i>Chat Penjual
+                                      </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 mb-4">
+                            <div class="product-card" data-id="6" data-title="Baju Olahraga" data-price="30000" data-img="./assets/img/BajuOlahraga.jpg" data-category="seragam">
+                                <div class="product-image">
+                                    <img src="./assets/img/BajuOlahraga.jpg" alt="Baju Olahraga">
+                                </div>
+                                <div class="product-content">
+                                    <h5 class="fw-bold mb-2">Baju Olahraga</h5>
+                                    <p class="text-muted mb-2">Kaos olahraga sekolah, ukuran L, kondisi 95%</p>
+                                    <div class="product-price mb-2">Rp 30.000</div>
+                                    <div class="text-info mb-1 fw-semibold"><i class="fas fa-school me-1"></i>SMPN 2 Yogyakarta</div>
+                                    <div class="mb-3"><span class="badge bg-success">Stok: 6</span></div>
+                                    <div class="d-flex gap-2">
+                                      <button class="add-to-cart">
+                                        <i class="fas fa-cart-plus me-2"></i>Tambah ke Keranjang
+                                      </button>
+                                      <button class="btn btn-outline-primary chat-seller-btn" data-seller="SMPN 2 Yogyakarta">
+                                        <i class="fas fa-comments me-1"></i>Chat Penjual
+                                      </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 mb-4">
+                            <div class="product-card" data-id="7" data-title="Celana Panjang Seragam" data-price="35000" data-img="./assets/img/Celana Panjang.jpg" data-category="seragam">
+                                <div class="product-image">
+                                    <img src="./assets/img/Celana Panjang.jpg" alt="Celana Panjang Seragam">
+                                </div>
+                                <div class="product-content">
+                                    <h5 class="fw-bold mb-2">Celana Panjang Seragam</h5>
+                                    <p class="text-muted mb-2">Celana abu-abu, ukuran 32, kondisi baik</p>
+                                    <div class="product-price mb-2">Rp 35.000</div>
+                                    <div class="text-info mb-1 fw-semibold"><i class="fas fa-school me-1"></i>SMAN 3 Bandung</div>
+                                    <div class="mb-3"><span class="badge bg-success">Stok: 5</span></div>
+                                    <div class="d-flex gap-2">
+                                      <button class="add-to-cart">
+                                        <i class="fas fa-cart-plus me-2"></i>Tambah ke Keranjang
+                                      </button>
+                                      <button class="btn btn-outline-primary chat-seller-btn" data-seller="SMAN 3 Bandung">
+                                        <i class="fas fa-comments me-1"></i>Chat Penjual
+                                      </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 mb-4">
+                            <div class="product-card" data-id="8" data-title="Sepatu Sekolah Hitam" data-price="55000" data-img="./assets/img/SepatuSekolah.jpg" data-category="seragam">
+                                <div class="product-image">
+                                    <img src="./assets/img/SepatuSekolah.jpg" alt="Sepatu Sekolah Hitam">
+                                </div>
+                                <div class="product-content">
+                                    <h5 class="fw-bold mb-2">Sepatu Sekolah Hitam</h5>
+                                    <p class="text-muted mb-2">Ukuran 42, kulit asli, kondisi 80%</p>
+                                    <div class="product-price mb-2">Rp 55.000</div>
+                                    <div class="text-info mb-1 fw-semibold"><i class="fas fa-school me-1"></i>SMPN 2 Yogyakarta</div>
+                                    <div class="mb-3"><span class="badge bg-success">Stok: 3</span></div>
+                                    <div class="d-flex gap-2">
+                                      <button class="add-to-cart">
+                                        <i class="fas fa-cart-plus me-2"></i>Tambah ke Keranjang
+                                      </button>
+                                      <button class="btn btn-outline-primary chat-seller-btn" data-seller="SMPN 2 Yogyakarta">
+                                        <i class="fas fa-comments me-1"></i>Chat Penjual
+                                      </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ekstrakurikuler Category -->
+                <div class="product-group" data-group="ekstrakurikuler">
+                    <div class="category-header">
+                        <div class="category-icon">
+                            <i class="fas fa-guitar"></i>
+                        </div>
+                        <div>
+                            <h3 class="fw-bold mb-1">Alat Ekstrakurikuler</h3>
+                            <p class="mb-0 opacity-75">Alat musik, olahraga, dan kegiatan lainnya</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 mb-4">
+                            <div class="product-card" data-id="9" data-title="Pianika Yamaha" data-price="85000" data-img="./assets/img/PianikaYamaha.jpg" data-category="ekstrakurikuler">
+                                <div class="product-image">
+                                    <img src="./assets/img/PianikaYamaha.jpg" alt="Pianika Yamaha">
+                                </div>
+                                <div class="product-content">
+                                    <h5 class="fw-bold mb-2">Pianika Yamaha</h5>
+                                    <p class="text-muted mb-2">32 tuts, lengkap dengan tas dan selang</p>
+                                    <div class="product-price mb-2">Rp 85.000</div>
+                                    <div class="text-info mb-1 fw-semibold"><i class="fas fa-school me-1"></i>SMAN 1 Medan</div>
+                                    <div class="mb-3"><span class="badge bg-success">Stok: 5</span></div>
+                                    <div class="d-flex gap-2">
+                                      <button class="add-to-cart">
+                                        <i class="fas fa-cart-plus me-2"></i>Tambah ke Keranjang
+                                      </button>
+                                      <button class="btn btn-outline-primary chat-seller-btn" data-seller="SMAN 1 Medan">
+                                        <i class="fas fa-comments me-1"></i>Chat Penjual
+                                      </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 mb-4">
+                            <div class="product-card" data-id="10" data-title="Raket Badminton" data-price="65000" data-img="./assets/img/RaketYonex.jpg" data-category="ekstrakurikuler">
+                                <div class="product-image">
+                                    <img src="./assets/img/RaketYonex.jpg" alt="Raket Badminton">
+                                </div>
+                                <div class="product-content">
+                                    <h5 class="fw-bold mb-2">Raket Badminton</h5>
+                                    <p class="text-muted mb-2">Yonex, senar masih bagus, grip baru</p>
+                                    <div class="product-price mb-2">Rp 65.000</div>
+                                    <div class="text-info mb-1 fw-semibold"><i class="fas fa-school me-1"></i>SMAN 3 Bandung</div>
+                                    <div class="mb-3"><span class="badge bg-success">Stok: 8</span></div>
+                                    <div class="d-flex gap-2">
+                                      <button class="add-to-cart">
+                                        <i class="fas fa-cart-plus me-2"></i>Tambah ke Keranjang
+                                      </button>
+                                      <button class="btn btn-outline-primary chat-seller-btn" data-seller="SMAN 3 Bandung">
+                                        <i class="fas fa-comments me-1"></i>Chat Penjual
+                                      </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 mb-4">
+                            <div class="product-card" data-id="11" data-title="Bola Voli Mikasa" data-price="45000" data-img="./assets/img/BolaVoliMikasa.jpg" data-category="ekstrakurikuler">
+                                <div class="product-image">
+                                    <img src="./assets/img/BolaVoliMikasa.jpg" alt="Bola Voli Mikasa">
+                                </div>
+                                <div class="product-content">
+                                    <h5 class="fw-bold mb-2">Bola Voli Mikasa</h5>
+                                    <p class="text-muted mb-2">Official size, masih bagus dan kencang</p>
+                                    <div class="product-price mb-2">Rp 45.000</div>
+                                    <div class="text-info mb-1 fw-semibold"><i class="fas fa-school me-1"></i>SMPN 2 Yogyakarta</div>
+                                    <div class="mb-3"><span class="badge bg-success">Stok: 12</span></div>
+                                    <div class="d-flex gap-2">
+                                      <button class="add-to-cart">
+                                        <i class="fas fa-cart-plus me-2"></i>Tambah ke Keranjang
+                                      </button>
+                                      <button class="btn btn-outline-primary chat-seller-btn" data-seller="SMPN 2 Yogyakarta">
+                                        <i class="fas fa-comments me-1"></i>Chat Penjual
+                                      </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 mb-4">
+                            <div class="product-card" data-id="12" data-title="Alat Lukis Lengkap" data-price="75000" data-img="./assets/img/AlatLukis.jpg" data-category="ekstrakurikuler">
+                                <div class="product-image">
+                                    <img src="./assets/img/AlatLukis.jpg" alt="Alat Lukis Lengkap">
+                                </div>
+                                <div class="product-content">
+                                    <h5 class="fw-bold mb-2">Alat Lukis Lengkap</h5>
+                                    <p class="text-muted mb-2">Cat air, kuas, palet, kertas dalam tas</p>
+                                    <div class="product-price mb-2">Rp 75.000</div>
+                                    <div class="text-info mb-1 fw-semibold"><i class="fas fa-school me-1"></i>SMAN 1 Medan</div>
+                                    <div class="mb-3"><span class="badge bg-success">Stok: 7</span></div>
+                                    <div class="d-flex gap-2">
+                                      <button class="add-to-cart">
+                                          <i class="fas fa-cart-plus me-2"></i>Tambah ke Keranjang
+                                      </button>
+                                      <button class="btn btn-outline-primary chat-seller-btn" data-seller="SMAN 1 Medan">
+                                        <i class="fas fa-comments me-1"></i>Chat Penjual
+                                      </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Modal -->
+    <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cartModalLabel">
+                        <i class="fas fa-shopping-cart me-2"></i>Keranjang Belanja
+                    </h5>
+                </div>
+                <div class="modal-body" id="cartItems">
+                    <div class="text-center py-4">
+                        <i class="fas fa-shopping-cart fa-3x text-muted mb-3"></i>
+                        <p class="text-muted">Keranjang belanja masih kosong</p>
+                        <small class="text-muted">Yuk, mulai belanja produk berkualitas dengan harga terjangkau!</small>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger px-4" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-success" id="checkoutBtn" disabled>
+                        <i class="fas fa-credit-card me-2"></i>Checkout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Leaderboard Section -->
+    <section id="leaderboard" class="py-5" role="region" aria-label="Eco-Champion Leaderboard">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold">Eco-Champion Leaderboard</h2>
+                <p class="lead text-muted">Sekolah dengan kontribusi terbaik untuk lingkungan</p>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="leaderboard" role="list" aria-label="Top Eco-Schools">
+                        <h4 class="fw-bold mb-4">🏆 Top Eco-Schools</h4>
+                        <div class="leaderboard-item" role="listitem" tabindex="0">
+                            <div class="me-3">
+                                <span class="badge bg-primary text-white fs-6">1</span>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h6 class="fw-bold mb-1">MAN Insan Cendekia OKI</h6>
+                                <small class="text-muted">Ogan Komering Ilir, Sumatera Selatan</small>
+                            </div>
+                            <div class="text-end">
+                                <div class="fw-bold text-success">5,000</div>
+                                <small class="text-muted">Eco-Score</small>
+                            </div>
+                        </div>
+                        <div class="leaderboard-item" role="listitem" tabindex="0">
+                            <div class="me-3">
+                                <span class="badge bg-danger fs-6">2</span>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h6 class="fw-bold mb-1">SMAN 1 Jakarta</h6>
+                                <small class="text-muted">Jakarta Pusat</small>
+                            </div>
+                            <div class="text-end">
+                                <div class="fw-bold text-success">4,852</div>
+                                <small class="text-muted">Eco-Score</small>
+                            </div>
+                        </div>
+                        <div class="leaderboard-item" role="listitem" tabindex="0">
+                            <div class="me-3">
+                                <span class="badge text-bg-warning fs-6">3</span>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h6 class="fw-bold mb-1">SMAN 3 Bandung</h6>
+                                <small class="text-muted">Bandung</small>
+                            </div>
+                            <div class="text-end">
+                                <div class="fw-bold text-success">3,987</div>
+                                <small class="text-muted">Eco-Score</small>
+                            </div>
+                        </div>
+                        <div class="leaderboard-item" role="listitem" tabindex="0">
+                            <div class="me-3">
+                                <span class="badge bg-light text-dark fs-6">4</span>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h6 class="fw-bold mb-1">SMPN 2 Yogyakarta</h6>
+                                <small class="text-muted">Yogyakarta</small>
+                            </div>
+                            <div class="text-end">
+                                <div class="fw-bold text-success">3,654</div>
+                                <small class="text-muted">Eco-Score</small>
+                            </div>
+                        </div>
+                        <div class="leaderboard-item" role="listitem" tabindex="0">
+                            <div class="me-3">
+                                <span class="badge bg-light text-dark fs-6">5</span>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h6 class="fw-bold mb-1">SMAN 1 Medan</h6>
+                                <small class="text-muted">Medan</small>
+                            </div>
+                            <div class="text-end">
+                                <div class="fw-bold text-success">3,421</div>
+                                <small class="text-muted">Eco-Score</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <!-- Top Contributors Sekolah -->
+                    <div class="leaderboard" role="list" aria-label="Top Contributors Sekolah">
+                        <h4 class="fw-bold mb-4">🌟 Top Contributors</h4>
+                        <div class="leaderboard-item" role="listitem" tabindex="0">
+                            <div class="me-3">
+                                <span class="badge bg-primary text-white fs-6">1</span>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h6 class="fw-bold mb-1">Ality Qahar Putra Dito</h6>
+                                <small class="text-muted">MAN Insan Cendekia OKI</small>
+                            </div>
+                            <div class="text-end">
+                                <div class="fw-bold text-success">285</div>
+                                <small class="text-muted">Eco-Points</small>
+                            </div>
+                        </div>
+                        <div class="leaderboard-item" role="listitem" tabindex="0">
+                            <div class="me-3">
+                                <span class="badge text-bg-danger fs-6">2</span>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h6 class="fw-bold mb-1">Saskia Najuwa</h6>
+                                <small class="text-muted">MAN Insan Cendekia OKI</small>
+                            </div>
+                            <div class="text-end">
+                                <div class="fw-bold text-success">267</div>
+                                <small class="text-muted">Eco-Points</small>
+                            </div>
+                        </div>
+                        <div class="leaderboard-item" role="listitem" tabindex="0">
+                            <div class="me-3">
+                                <span class="badge text-bg-warning fs-6">3</span>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h6 class="fw-bold mb-1">Budi Santoso</h6>
+                                <small class="text-muted">SMAN 1 Jakarta</small>
+                            </div>
+                            <div class="text-end">
+                                <div class="fw-bold text-success">243</div>
+                                <small class="text-muted">Eco-Points</small>
+                            </div>
+                        </div>
+                        <div class="leaderboard-item" role="listitem" tabindex="0">
+                            <div class="me-3">
+                                <span class="badge bg-light text-dark fs-6">4</span>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h6 class="fw-bold mb-1">Rina Dewi</h6>
+                                <small class="text-muted">SMAN 3 Bandung</small>
+                            </div>
+                            <div class="text-end">
+                                <div class="fw-bold text-success">231</div>
+                                <small class="text-muted">Eco-Points</small>
+                            </div>
+                        </div>
+                        <div class="leaderboard-item" role="listitem" tabindex="0">
+                            <div class="me-3">
+                                <span class="badge bg-light text-dark fs-6">5</span>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h6 class="fw-bold mb-1">Doni Pratama</h6>
+                                <small class="text-muted">SMPN 2 Yogyakarta</small>
+                            </div>
+                            <div class="text-end">
+                                <div class="fw-bold text-success">218</div>
+                                <small class="text-muted">Eco-Points</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>  
+    </section>  
+    <!-- Floating Chat Button (gantikan FAB scroll-to-top) -->
+    <button class="floating-chat-btn" id="floatingChatBtn" aria-label="Chat Penjual">
+        <i class="fas fa-comments"></i>
+    </button>
+    <!-- Footer -->
+    <footer class="footer text-center text-white" role="contentinfo">  
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 mb-4">
+                    <h5 class="text-white">Tukerin</h5>
+                    <p class="text-white-50">Platform pertukaran barang bekas sekolah yang mendukung ekonomi sirkular dan keberlanjutan lingkungan.</p>
+                    <p class="text-white-50 mb-1"><i class="fas fa-map-marker-alt me-2"></i>Jl. Pendidikan No. 123, Jakarta Selatan, Indonesia</p>
+                    <p class="text-white-50 mb-1"><i class="fas fa-envelope me-2"></i>info@tukerin.com</p>
+                    <p class="text-white-50 mb-1"><i class="fas fa-phone me-2"></i>(021) 123-4567</p>
+                </div>
+                <div class="col-lg-3 mb-4">
+                    <h5 class="text-white">Informasi</h5>
+                    <ul class="list-unstyled">
+                      <li><a href="#" class="text-white-50 text-decoration-none"><i class="fas fa-file-alt me-2"></i>Kebijakan Privasi</a></li>
+                      <li><a href="#" class="text-white-50 text-decoration-none"><i class="fas fa-question-circle me-2"></i>FAQ</a></li>
+                      <li><a href="#" class="text-white-50 text-decoration-none"><i class="fas fa-info-circle me-2"></i>Tentang Kami</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 mb-4">
+                    <h5 class="text-white">Kontak</h5>
+                    <p class="text-white-50">
+                      <i class="fas fa-envelope me-2"></i> info@tukerin.com<br>
+                      <i class="fas fa-phone me-2"></i> (021) 123-4567<br>
+                      <i class="fas fa-map-marker-alt me-2"></i> Jakarta, Indonesia
+                    </p>
+                </div>
+                <div class="col-lg-3 mb-4">
+                    <h5 class="text-white">Ikuti Kami</h5>
+                    <div class="d-flex gap-3 justify-content-center">
+                        <a href="#" class="text-white"><i class="fab fa-facebook fa-2x"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-twitter fa-2x"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-instagram fa-2x"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-linkedin fa-2x"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="bg-light my-4">
+            <div class="text-center text-white-50">
+                <small>&copy; 2025 Tukerin. All rights reserved.</small>
+            </div>
+        </div>
+    </footer>
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="./assets/js/main.js"></script>
+    <script>
+      // Inisialisasi Leaflet map pada #mapid
+      document.addEventListener('DOMContentLoaded', function() {
+        if (document.getElementById('mapid')) {
+          var map = L.map('mapid').setView([-2.5, 118], 5);
+          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 18,
+            attribution: '© OpenStreetMap contributors'
+          }).addTo(map);
+
+          // Marker sekolah, MAN Insan Cendekia OKI sebagai nomor 1
+          var schools = [
+            { name: 'MAN Insan Cendekia OKI', lat: -3.385, lng: 104.830, score: 5000, students: 800 },
+            { name: 'SMAN 1 Jakarta', lat: -6.2, lng: 106.8, score: 4852, students: 1247 },
+            { name: 'SMPN 5 Surabaya', lat: -7.3, lng: 112.7, score: 4203, students: 987 },
+            { name: 'SMAN 3 Bandung', lat: -6.9, lng: 107.6, score: 3987, students: 1156 },
+            { name: 'SMPN 2 Yogyakarta', lat: -7.8, lng: 110.4, score: 3654, students: 897 },
+            { name: 'SMAN 1 Medan', lat: 3.6, lng: 98.7, score: 3421, students: 1089 },
+            { name: 'SMPN 4 Makassar', lat: -5.1, lng: 119.4, score: 2987, students: 756 },
+            { name: 'SMAN 2 Denpasar', lat: -8.7, lng: 115.2, score: 2654, students: 834 }
+          ];
+          schools.forEach(function(school) {
+            L.marker([school.lat, school.lng]).addTo(map)
+              .bindPopup('<b>' + school.name + '</b>');
+          });
+        }
+      });
+    </script>
+
+    <!-- Side Panel Dashboard -->
+    <div id="dashboardPanel" class="dashboard-panel" aria-hidden="true" aria-label="Dashboard Eco-Impact" role="region">
+      <button id="closeDashboardBtn" class="btn-close btn-close-white" aria-label="Close Dashboard"></button>
+      <div class="container py-4">
+        <!-- Profil Sekolah -->
+        <div class="text-center mb-4">
+          <img src="https://ui-avatars.com/api/?name=MAN+Insan+Cendekia+OKI&background=4a7c23&color=fff&rounded=true&size=64" alt="Profil Sekolah" width="64" height="64" class="rounded-circle mb-2">
+          <h4 class="fw-bold mb-1">MAN Insan Cendekia OKI</h4>
+          <div class="text-muted mb-2">Ogan Komering Ilir, Sumatera Selatan</div>
+
+          <!-- Tombol login/logout dinamis -->
+          <button id="authBtn" class="btn btn-danger btn-sm mt-2">Login</button>
+        </div>
+        <!-- Eco-Score Sekolah -->
+        <div class="eco-score-section mb-4 text-center">
+          <h5 class="fw-bold mb-2"><i class="fas fa-leaf me-2 text-success"></i>Eco-Score Sekolah</h5>
+          <svg class="tree-svg" viewBox="0 0 120 200" style="max-width:220px;height:200px;">
+            <defs>
+              <linearGradient id="trunkGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style="stop-color:#8d6e63;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#5d4037;stop-opacity:1" />
+              </linearGradient>
+              <linearGradient id="leafGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#8bc34a;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#689f38;stop-opacity:1" />
+              </linearGradient>
+              <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+                <feDropShadow dx="2" dy="2" stdDeviation="3" flood-color="rgba(0,0,0,0.3)"/>
+              </filter>
+            </defs>
+            <!-- Batang lebih tinggi -->
+            <rect x="54" y="70" width="12" height="90" rx="6" fill="url(#trunkGradient)" filter="url(#shadow)" />
+            <!-- Daun besar dan lebat -->
+            <ellipse cx="60" cy="90" rx="40" ry="32" fill="url(#leafGradient1)" id="tree-leaf-1" filter="url(#shadow)">
+              <animate attributeName="ry" values="32;36;32" dur="4s" repeatCount="indefinite"/>
+            </ellipse>
+            <ellipse cx="60" cy="65" rx="28" ry="22" fill="#689f38" id="tree-leaf-2" filter="url(#shadow)">
+              <animate attributeName="ry" values="22;26;22" dur="3s" repeatCount="indefinite"/>
+            </ellipse>
+            <ellipse cx="60" cy="50" rx="18" ry="14" fill="#558b2f" id="tree-leaf-3" filter="url(#shadow)">
+              <animate attributeName="ry" values="14;18;14" dur="2s" repeatCount="indefinite"/>
+            </ellipse>
+            <!-- Floating particles -->
+            <g id="particles">
+              <circle cx="45" cy="30" r="3" fill="#a5d6a7" opacity="0.8">
+                <animate attributeName="cy" values="30;10;30" dur="3s" repeatCount="indefinite"/>
+                <animate attributeName="opacity" values="0.8;0.3;0.8" dur="3s" repeatCount="indefinite"/>
+              </circle>
+              <circle cx="75" cy="25" r="2.5" fill="#c8e6c9" opacity="0.6">
+                <animate attributeName="cy" values="25;5;25" dur="4s" repeatCount="indefinite"/>
+                <animate attributeName="opacity" values="0.6;0.2;0.6" dur="4s" repeatCount="indefinite"/>
+              </circle>
+            </g>
+          </svg>
+          <div class="display-4 fw-bold text-success" id="ecoScorePanelValue">5,000</div>
+          <div class="progress" style="height: 12px;">
+            <div class="progress-bar bg-success" id="ecoScorePanelBar" style="width: 100%;"></div>
+          </div>
+          <div class="mt-2 text-muted">Level: 🏆 Eco Legend</div>
+        </div>
+        <!-- Statistik Dampak Lingkungan (grafik singkat, lebih ringkas) -->
+        <div class="stats-panel mb-4">
+          <h5 class="fw-bold mb-3"><i class="fas fa-chart-bar me-2 text-success"></i>Statistik Dampak Lingkungan</h5>
+          <canvas id="ecoStatsChart" height="100"></canvas>
+          <div class="row mt-3">
+            <div class="col-4 text-center">
+              <div class="fw-bold text-success fs-5">156</div>
+              <div class="small text-muted">Barang Didaur Ulang</div>
+            </div>
+            <div class="col-4 text-center">
+              <div class="fw-bold text-primary fs-5">89.2 kg</div>
+              <div class="small text-muted">CO₂ Dikurangi</div>
+            </div>
+            <div class="col-4 text-center">
+              <div class="fw-bold text-dangerbtn-danger fs-5">12</div>
+              <div class="small text-muted">Pohon Terselamatkan</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tambahkan script Chart.js untuk grafik -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      // Side panel dashboard logic
+      document.addEventListener('DOMContentLoaded', function() {
+        const profileDashboardBtn = document.getElementById('profileDashboardBtn');
+        const dashboardPanel = document.getElementById('dashboardPanel');
+        const closeDashboardBtn = document.getElementById('closeDashboardBtn');
+        const authBtn = document.getElementById('authBtn');
+        let loggedIn = false;
+
+        if (profileDashboardBtn && dashboardPanel && closeDashboardBtn) {
+          profileDashboardBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            dashboardPanel.classList.add('active');
+            dashboardPanel.setAttribute('aria-hidden', 'false');
+          });
+          closeDashboardBtn.addEventListener('click', () => {
+            dashboardPanel.classList.remove('active');
+            dashboardPanel.setAttribute('aria-hidden', 'true');
+          });
+          document.addEventListener('click', (e) => {
+            if (!dashboardPanel.contains(e.target) && e.target !== profileDashboardBtn && !profileDashboardBtn.contains(e.target)) {
+              dashboardPanel.classList.remove('active');
+              dashboardPanel.setAttribute('aria-hidden', 'true');
+            }
+          });
+        }
+
+        // Chart statistik dampak lingkungan (lebih ringkas, 3 data)
+        if (window.Chart && document.getElementById('ecoStatsChart')) {
+          new Chart(document.getElementById('ecoStatsChart').getContext('2d'), {
+            type: 'doughnut',
+            data: {
+              labels: ['Barang Didaur Ulang', 'CO₂ Dikurangi', 'Pohon Terselamatkan'],
+              datasets: [{
+                label: 'Statistik',
+                data: [156, 89.2, 12],
+                backgroundColor: ['#8bc34a', '#2196f3', '#ffeb3b']
+              }]
+            },
+            options: {
+              plugins: { legend: { display: true, position: 'bottom' } },
+              cutout: '70%',
+            }
+          });
+        }
+
+        // Tombol login/logout dinamis
+        function updateAuthBtn() {
+          authBtn.textContent = loggedIn ? 'Logout' : 'Login';
+          authBtn.className = loggedIn ? 'btn btn-danger btn-sm mt-2' : 'btn btn-success btn-sm mt-2';
+        }
+        updateAuthBtn();
+        authBtn.onclick = function() {
+          loggedIn = !loggedIn;
+          updateAuthBtn();
+          // alert(loggedIn ? 'Login berhasil!' : 'Log Out berhasil!');
+          // Tampilkan modal login/logout sesuai status
+          if (loggedIn) {
+            const modalLogin = new bootstrap.Modal(document.getElementById('modalLogin'));
+            modalLogin.show();
+          } else {
+            const modalLogout = new bootstrap.Modal(document.getElementById('modalLogout'));
+            modalLogout.show();
+          }
+        };
+
+        // Animasi pertumbuhan pohon SVG (responsive)
+        function growTreeSVG(score) {
+          // score: 0-5000
+          const percent = Math.min(score / 5000, 1);
+          document.getElementById('tree-leaf-1').setAttribute('ry', 22 + percent * 8);
+          document.getElementById('tree-leaf-2').setAttribute('ry', 14 + percent * 5);
+          document.getElementById('tree-leaf-3').setAttribute('ry', 8 + percent * 4);
+        }
+        growTreeSVG(5000); // Eco-Score default
+      });
+    </script>
+
+    <!-- Animasi hero typing -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const heroTyping = document.getElementById('heroTyping');
+        const texts = [
+          "Tukar barang bekas sekolah dengan mudah.",
+          "Dukung ekonomi sirkular di dunia pendidikan.",
+          "Pantau dampak lingkungan secara real-time.",
+          "Setiap transaksi = 1 bibit pohon!",
+          "Aksi nyata untuk lingkungan."
+        ];
+        let idx = 0, charIdx = 0, isDeleting = false, delay = 40;
+
+        function type() {
+          if (!heroTyping) return;
+          const currentText = texts[idx];
+          if (isDeleting) {
+            heroTyping.textContent = currentText.substring(0, charIdx--);
+          } else {
+            heroTyping.textContent = currentText.substring(0, charIdx++);
+          }
+          if (!isDeleting && charIdx === currentText.length + 1) {
+            isDeleting = true;
+            setTimeout(type, 1200);
+          } else if (isDeleting && charIdx === 0) {
+            isDeleting = false;
+            idx = (idx + 1) % texts.length;
+            setTimeout(type, 400);
+          } else {
+            setTimeout(type, delay);
+          }
+        }
+        type();
+      });
+    </script>
+
+    <!-- Modal Daftarkan Sekolah -->
+<div class="modal fade" id="modalDaftarkanSekolah" tabindex="-1" aria-labelledby="modalDaftarkanSekolahLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalDaftarkanSekolahLabel">Daftarkan Sekolah</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+      </div>
+      <div class="modal-body">
+        <p>Fitur pendaftaran sekolah akan segera tersedia.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger px-4" data-bs-dismiss="modal">Tutup</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal Lihat Dashboard -->
+<div class="modal fade" id="modalLihatDashboard" tabindex="-1" aria-labelledby="modalLihatDashboardLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalLihatDashboardLabel">Lihat Dashboard</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+      </div>
+      <div class="modal-body">
+        <p>Dashboard detail akan segera tersedia.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger px-4" data-bs-dismiss="modal">Tutup</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal Eco Champions -->
+<div class="modal fade" id="modalEcoChampions" tabindex="-1" aria-labelledby="modalEcoChampionsLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalEcoChampionsLabel">Eco-Champions</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+      </div>
+      <div class="modal-body">
+        <p>Daftar Eco-Champions akan segera tersedia.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger px-4" data-bs-dismiss="modal">Tutup</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal Logout -->
+<div class="modal fade" id="modalLogout" tabindex="-1" aria-labelledby="modalLogoutLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalLogoutLabel">Konfirmasi Logout</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+      </div>
+      <div class="modal-body">
+        <p>Apakah Anda yakin ingin keluar dari akun?</p>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-danger px-4" data-bs-dismiss="modal">Batal</button>
+        <button type="button" class="btn btn-danger px-4" id="confirmLogoutBtn">Logout</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal Login -->
+<div class="modal fade" id="modalLogin" tabindex="-1" aria-labelledby="modalLoginLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalLoginLabel">Konfirmasi Login</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+      </div>
+      <div class="modal-body">
+        <p>Apakah Anda yakin ingin login ke akun?</p>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-danger px-4" data-bs-dismiss="modal">Batal</button>
+        <button type="button" class="btn btn-success px-4" id="confirmLoginBtn">Login</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal Checkout -->
+<div class="modal fade" id="modalCheckout" tabindex="-1" aria-labelledby="modalCheckoutLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalCheckoutLabel">
+          <i class="fas fa-credit-card me-2"></i>Checkout
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-4">
+          <h6 class="fw-bold mb-3">Pilih Metode Pembayaran:</h6>
+          <div class="row g-3" id="paymentMethods">
+            <div class="col-md-3 col-6">
+              <label class="payment-option w-100">
+                <input type="radio" name="metodePembayaran" value="Bank" checked>
+                <div class="option-card p-3 h-100">
+                  <i class="fas fa-university fa-2x text-primary mb-2"></i>
+                  <div>Bank Transfer</div>
+                  <small class="text-muted">Mandiri, BCA, BRI</small>
+                </div>
+              </label>
+            </div>
+            <!-- Tambahkan opsi pembayaran lainnya -->
+          </div>
+        </div>
+        
+        <div class="mb-4">
+          <h6 class="fw-bold mb-3">Pilih Opsi Pengiriman:</h6>
+          <div class="row g-3" id="shippingMethods">
+            <div class="col-md-6">
+              <label class="shipping-option w-100">
+                <input type="radio" name="metodePengiriman" value="Ambil di Sekolah" checked>
+                <div class="option-card p-3 h-100">
+                  <i class="fas fa-school fa-2x text-success mb-2"></i>
+                  <div>Ambil di Sekolah</div>
+                  <small class="text-muted">Koperasi/Perpustakaan</small>
+                </div>
+              </label>
+            </div>
+            <!-- Tambahkan opsi pengiriman lainnya -->
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+        <button type="button" class="btn btn-success" id="confirmCheckoutBtn">
+          <i class="fas fa-check me-2"></i>Konfirmasi Pembayaran
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- Sidebar Chat Penjual -->
+    <div id="chatSidebar" class="chat-sidebar">
+  <div class="chat-sidebar-header d-flex align-items-center justify-content-between px-3">
+    <span>
+      <i class="fas fa-comments me-2"></i>Chat Penjual: <span id="chatSidebarSeller"></span>
+    </span>
+    <button id="closeChatSidebar" class="btn btn-sm btn-light ms-2" aria-label="Tutup">&times;</button>
+  </div>
+  <div class="chat-sidebar-body p-0">
+    <div class="chat-sidebar-cols d-flex" style="height:100%;">
+      <!-- Kolom kiri: history chat -->
+      <div id="chatSellerHistory" class="chat-sidebar-history border-end"></div>
+      <!-- Kolom kanan: isi chat -->
+      <div class="chat-sidebar-main flex-grow-1 d-flex flex-column">
+        <div id="chatSidebarMessages" class="chat-messages mb-2"></div>
+        <div class="input-group p-3">
+          <input type="text" id="chatSidebarInput" class="form-control" placeholder="Ketik pesan..." autocomplete="off">
+          <button id="chatSidebarSend" class="btn btn-success" type="button"><i class="fas fa-paper-plane"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- EcoBuddy Chat Button -->
+<div class="ecobuddy-chat-btn" id="ecobuddyBtn">
+    <i class="fas fa-robot"></i>
+</div>
+
+<!-- EcoBuddy Chat Panel -->
+<div id="ecobuddyPanel" class="ecobuddy-panel">
+    <div class="ecobuddy-header">
+        <div class="d-flex align-items-center">
+            <div class="ecobuddy-avatar me-2">
+                <i class="fas fa-robot"></i>
+            </div>
+            <div>
+                <h6 class="mb-0">EcoBuddy</h6>
+                <small class="text-muted">Asisten Ekonomi Sirkular</small>
+            </div>
+        </div>
+        <button id="closeEcobuddyBtn" class="btn btn-sm btn-light">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    <div class="ecobuddy-body" id="ecobuddyMessages">
+        <div class="ecobuddy-message ecobuddy-bot">
+            <div class="ecobuddy-bubble">Halo! Saya EcoBuddy, asisten digital Anda di Tukerin. Ada yang bisa saya bantu?</div>
+        </div>
+    </div>
+    <div class="ecobuddy-footer">
+        <div class="input-group">
+            <input type="text" class="form-control" id="ecobuddyInput" placeholder="Tanyakan sesuatu..." autocomplete="off">
+            <button class="btn btn-success" id="ecobuddySend">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+</div>
+</body>
+</html>
