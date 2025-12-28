@@ -15,11 +15,11 @@ Masalah yang Diselesaikan
 
 Value Proposition
 ---------------------------------------
-🌱 Real-time Impact Tracking: Setiap transaksi diterjemahkan menjadi eco-score dan CO₂ yang dikurangi
-🤖 AI-Powered Assistant (EcoBuddy): Chatbot edukatif untuk konsultasi ekonomi sirkular
-🏫 School Ecosystem: Sistem terintegrasi dengan koperasi dan perpustakaan sekolah
-📊 Gamification: Leaderboard, badge, dan sertifikat untuk memotivasi partisipasi
-🔒 Enterprise-grade Security: Email verification, role-based access, dan real-time data protection
+- 🌱 Real-time Impact Tracking: Setiap transaksi diterjemahkan menjadi eco-score dan CO₂ yang dikurangi
+- 🤖 AI-Powered Assistant (EcoBuddy): Chatbot edukatif untuk konsultasi ekonomi sirkular
+- 🏫 School Ecosystem: Sistem terintegrasi dengan koperasi dan perpustakaan sekolah
+- 📊 Gamification: Leaderboard, badge, dan sertifikat untuk memotivasi partisipasi
+- 🔒 Enterprise-grade Security: Email verification, role-based access, dan real-time data protection
 
 
 
@@ -77,31 +77,31 @@ Value Proposition
 🔒 Security Features
 ---------------------------------------
 1. Authentication & Authorization
-✅ Email Verification - Wajib verifikasi sebelum akses penuh
-✅ JWT Tokens - Secure session management via Supabase Auth
-✅ Role-Based Access Control (RBAC) - Student, Teacher, Admin roles
-✅ Protected Routes - Client-side route guards
-✅ Secure Password Storage - Bcrypt hashing (handled by Supabase)
+- ✅ Email Verification - Wajib verifikasi sebelum akses penuh
+- ✅ JWT Tokens - Secure session management via Supabase Auth
+- ✅ Role-Based Access Control (RBAC) - Student, Teacher, Admin roles
+- ✅ Protected Routes - Client-side route guards
+- ✅ Secure Password Storage - Bcrypt hashing (handled by Supabase)
 2. Database Security
-✅ Row Level Security (RLS): Policies untuk akses data berdasarkan user_id dan role
-✅ Prepared Statements: Supabase client mencegah SQL injection
-✅ Data Validation: Input sanitization di frontend dan backend
+- ✅ Row Level Security (RLS): Policies untuk akses data berdasarkan user_id dan role
+- ✅ Prepared Statements: Supabase client mencegah SQL injection
+- ✅ Data Validation: Input sanitization di frontend dan backend
 
 3. API Security
-✅ CORS Configuration: Restricted origin access
-✅ Rate Limiting: Proteksi terhadap abuse (via Supabase built-in)
-✅ Environment Variables: Sensitive keys tidak di-commit ke repository
+- ✅ CORS Configuration: Restricted origin access
+- ✅ Rate Limiting: Proteksi terhadap abuse (via Supabase built-in)
+- ✅ Environment Variables: Sensitive keys tidak di-commit ke repository
 
 4. Client-Side Security
-✅ XSS Prevention: React's built-in escaping + CSP headers
-✅ CSRF Protection: Token-based requests
-✅ Secure Storage: Supabase handles token storage dengan HttpOnly cookies
+- ✅ XSS Prevention: React's built-in escaping + CSP headers
+- ✅ CSRF Protection: Token-based requests
+- ✅ Secure Storage: Supabase handles token storage dengan HttpOnly cookies
 
 5. Privacy & Compliance
-✅ Data Minimization: Hanya collect data yang diperlukan
-✅ User Consent: Clear privacy policy dan terms of service
-✅ Data Encryption: HTTPS untuk semua komunikasi
-✅ Audit Trails: Activity logging untuk tracking perubahan
+- ✅ Data Minimization: Hanya collect data yang diperlukan
+- ✅ User Consent: Clear privacy policy dan terms of service
+- ✅ Data Encryption: HTTPS untuk semua komunikasi
+- ✅ Audit Trails: Activity logging untuk tracking perubahan
 
 
 📦 Installation
@@ -122,7 +122,7 @@ Value Proposition
 - cp .env.example .env.local
 
 # Run development server
-npm run dev
+- npm run dev
 
 # Environment Variables
 VITE_SUPABASE_URL=https://iomvntpdynnunysctrdk.supabase.co
