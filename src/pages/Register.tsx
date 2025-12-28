@@ -114,11 +114,6 @@ export default function Register() {
       // Success
       setSuccess(true);
       setLoading(false);
-
-      // Redirect after 3 seconds
-      setTimeout(() => {
-        navigate('/login');
-      }, 3000);
     } catch {
       setLoading(false);
       Swal.fire({
@@ -133,6 +128,7 @@ export default function Register() {
 
   // Tampilan sukses registrasi (semua style dipindah ke RegisterSuccess.module.css)
   if (success) {
+    // Modal instruksi verifikasi akun yang hanya bisa ditutup dengan tombol konfirmasi
     return (
       <section className={styles.loginSection}>
         <div className={styles.bgDecor}>
@@ -143,37 +139,92 @@ export default function Register() {
         <div className={styles.loginContainer} style={{ maxWidth: '600px', gridTemplateColumns: '1fr' }}>
           <div className={styles.rightPanel}>
             <div className={styles.formContainer}>
-              <div className={successStyles.successBox}>
-                <div className={successStyles.successIcon}>
-                  <i className="bi bi-check-circle-fill"></i>
-                </div>
-                <h2 className={successStyles.successTitle}>
-                  Registrasi Berhasil!
-                </h2>
-                <p className={successStyles.successSubtitle}>
-                  Kami telah mengirim email verifikasi ke <strong>{formData.email}</strong>
-                </p>
-                <div className={successStyles.nextStepBox}>
-                  <p className={successStyles.nextStepTitle}>
-                    <i className="bi bi-info-circle-fill"></i>
-                    Langkah Selanjutnya:
-                  </p>
-                  <ol className={successStyles.nextStepList}>
-                    <li>Buka inbox email Anda</li>
-                    <li>Klik link verifikasi yang kami kirim</li>
-                    <li>Login dengan akun Anda</li>
-                  </ol>
-                </div>
-                <p className={successStyles.redirectInfo}>
-                  Anda akan dialihkan ke halaman login dalam beberapa detik...
-                </p>
-                <a
-                  href="/login"
-                  className={successStyles.loginBtn}
+              {/* Modal instruksi verifikasi akun */}
+              <div
+                className={successStyles.successBox}
+                style={{
+                  position: 'fixed',
+                  top: 0,
+                  left: 0,
+                  width: '100vw',
+                  height: '100vh',
+                  background: 'rgba(0,0,0,0.18)',
+                  zIndex: 9999,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  padding: 0,
+                  margin: 0,
+                }}
+              >
+                <div
+                  style={{
+                    background: '#fff',
+                    borderRadius: 18,
+                    boxShadow: '0 8px 32px rgba(74,124,35,0.13)',
+                    maxWidth: 420,
+                    width: '95vw',
+                    padding: '36px 28px 28px 28px',
+                    textAlign: 'center',
+                    position: 'relative',
+                  }}
+                  onClick={e => e.stopPropagation()}
+                  tabIndex={0}
+                  aria-modal="true"
+                  role="dialog"
                 >
-                  <i className="bi bi-box-arrow-in-right"></i>
-                  Login Sekarang
-                </a>
+                  <div className={successStyles.successIcon}>
+                    <i className="bi bi-check-circle-fill"></i>
+                  </div>
+                  <h2 className={successStyles.successTitle}>
+                    Registrasi Berhasil!
+                  </h2>
+                  <p className={successStyles.successSubtitle}>
+                    Kami telah mengirim email verifikasi ke <strong>{formData.email}</strong>
+                  </p>
+                  <div className={successStyles.nextStepBox}>
+                    <p className={successStyles.nextStepTitle}>
+                      <i className="bi bi-info-circle-fill"></i>
+                      Langkah Selanjutnya:
+                    </p>
+                    <ol className={successStyles.nextStepList}>
+                      <li>Buka inbox email Anda</li>
+                      <li>Klik link verifikasi yang kami kirim</li>
+                      <li>Login dengan akun Anda</li>
+                    </ol>
+                  </div>
+                  <p className={successStyles.redirectInfo}>
+                    Setelah menekan tombol di bawah, Anda akan dialihkan ke halaman login.
+                  </p>
+                  {/* Tombol konfirmasi, satu-satunya cara menutup modal */}
+                  <button
+                    className={successStyles.loginBtn}
+                    style={{
+                      marginTop: 18,
+                      minWidth: 180,
+                      fontWeight: 600,
+                      fontSize: '1.1rem',
+                      border: 'none',
+                      borderRadius: 10,
+                      background: 'linear-gradient(135deg, #4a7c23, #8bc34a)',
+                      color: '#fff',
+                      padding: '12px 0',
+                      cursor: 'pointer',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: 8,
+                    }}
+                    onClick={() => {
+                      // Redirect ke login setelah user menekan tombol
+                      navigate('/login');
+                    }}
+                    autoFocus
+                  >
+                    <i className="bi bi-box-arrow-in-right"></i>
+                    Saya Paham
+                  </button>
+                </div>
               </div>
             </div>
           </div>
