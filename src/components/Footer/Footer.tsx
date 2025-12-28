@@ -7,7 +7,7 @@ return (
         <div className={styles.row}>
         {/* About Section */}
         <div className={styles.col}>
-            <img src="footer-logo.png" className={styles.logo}/>
+            <img src="footer-logo.webp" className={styles.logo}/>
             <p className={styles.text}>
             Platform pertukaran barang bekas sekolah yang mendukung ekonomi sirkular dan keberlanjutan lingkungan.
             </p>
