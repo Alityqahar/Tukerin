@@ -1,0 +1,81 @@
+.container{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.notifContainer{
+    border: 1.5px solid #e0e7ef;
+    border-radius: 20px;
+    margin-top: 20px;
+    padding: 15px 18px;
+    min-height: 100px;
+}
+
+.notifItem{
+    border: 1.5px solid #4a7c23;
+    border-radius: 16px;
+    padding: 12px 18px;
+    background: linear-gradient(120deg, #f1f8e9 70%, #e8f5e9 100%);
+    transition: box-shadow 0.15s, background 0.15s, transform 0.15s;
+}
+.notifItem:hover {
+    background: linear-gradient(120deg, #dcedc8 70%, #c5e1a5 100%);
+    box-shadow: 0 4px 16px rgba(76,175,80,0.10);
+    transform: translateY(-1px) scale(1.01);
+}
+
+.title{
+    font-size: 1.1rem;
+    color: #4a7c23;
+    font-weight: 500;
+    display: block;
+}
+
+.deadline{
+    font-size: 0.9rem;
+}
+
+.sectionHeader {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    padding-bottom: 12px;
+    border-bottom: 3px solid #e8f5e9;
+    position: relative;
+}
+
+.sectionHeader::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, #4a7c23, #8bc34a);
+    border-radius: 2px;
+}
+
+.sectionHeader i {
+    font-size: 1.8rem;
+    color: #4a7c23;
+    animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+.sectionHeader h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #2d5016;
+    margin: 0;
+    background: linear-gradient(135deg, #2d5016, #4a7c23, #8bc34a);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}

@@ -1,0 +1,91 @@
+/* Box utama sukses */
+.successBox {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+/* Ikon sukses besar */
+.successIcon {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #4a7c23, #8bc34a);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 25px;
+  font-size: 3rem;
+  color: white;
+  animation: scaleIn 0.5s cubic-bezier(0.2,0.9,0.3,1);
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* Judul sukses */
+.successTitle {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #2d5016;
+  margin-bottom: 15px;
+}
+
+/* Subjudul sukses */
+.successSubtitle {
+  font-size: 1.1rem;
+  color: #5a7c3c;
+  line-height: 1.6;
+  margin-bottom: 25px;
+}
+
+/* Box langkah selanjutnya */
+.nextStepBox {
+  background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+  padding: 20px;
+  border-radius: 12px;
+  border: 2px solid #ffb74d;
+  margin-bottom: 25px;
+  text-align: left;
+}
+
+/* Judul langkah selanjutnya */
+.nextStepTitle {
+  margin: 0 0 10px 0;
+  font-weight: 600;
+  color: #ef6c00;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* List langkah selanjutnya */
+.nextStepList {
+  margin: 0;
+  padding-left: 20px;
+  color: #5a7c3c;
+  font-size: 0.95rem;
+}
+
+/* Info redirect */
+.redirectInfo {
+  font-size: 0.9rem;
+  color: #999;
+  margin-bottom: 20px;
+}
+
+/* Tombol login sekarang */
+.loginBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #4a7c23, #8bc34a);
+  color: white;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}

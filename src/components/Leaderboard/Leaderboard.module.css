@@ -1,0 +1,485 @@
+.leaderboardSection {
+    padding: 80px 0;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e8f5e9 100%);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header */
+.header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: #666;
+    margin: 0;
+}
+
+/* Leaderboard Grid */
+.leaderboardGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    gap: 30px;
+}
+
+.leaderboardColumn {
+    width: 100%;
+}
+
+/* Leaderboard Container */
+.leaderboard {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.leaderboard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+}
+
+.leaderboardTitle {
+    font-weight: bold;
+    margin-bottom: 25px;
+    color: #333;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.trophy,
+.star {
+    font-size: 1.8rem;
+}
+
+/* Leaderboard Item */
+.leaderboardItem {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    margin: 10px 0;
+    background: #f8f9fa;
+    border-radius: 10px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    cursor: pointer;
+}
+
+.leaderboardItem:hover,
+.leaderboardItem:focus {
+    background: linear-gradient(135deg, #8bc34a 0%, #4a7c23 100%);
+    color: white;
+    outline: none;
+    transform: translateX(5px);
+}
+
+.leaderboardItem:hover .itemName,
+.leaderboardItem:focus .itemName {
+    color: white;
+}
+
+.leaderboardItem:hover .itemLocation,
+.leaderboardItem:focus .itemLocation {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.leaderboardItem:hover .scoreValue,
+.leaderboardItem:focus .scoreValue {
+    color: white;
+}
+
+.leaderboardItem:hover .scoreLabel,
+.leaderboardItem:focus .scoreLabel {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Rank Badge */
+.rankBadge {
+    margin-right: 15px;
+    flex-shrink: 0;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    padding: 0 12px;
+}
+
+.badgePrimary {
+    background: linear-gradient(135deg, #2196f3, #1976d2);
+    color: white;
+}
+
+.badgeDanger {
+    background: linear-gradient(135deg, #ef5350, #e53935);
+    color: white;
+}
+
+.badgeWarning {
+    background: linear-gradient(135deg, #ffeb3b, #fbc02d);
+    color: #333;
+}
+
+.badgeLight {
+    background: #e0e0e0;
+    color: #333;
+}
+
+/* Item Info */
+.itemInfo {
+    flex: 1;
+    min-width: 0;
+}
+
+.itemName {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+    font-size: 1.1rem;
+}
+
+.itemLocation {
+    color: #666;
+    font-size: 0.9rem;
+    display: block;
+}
+
+/* Item Score */
+.itemScore {
+    text-align: right;
+    flex-shrink: 0;
+    margin-left: 15px;
+}
+
+.scoreValue {
+    font-weight: bold;
+    font-size: 1.3rem;
+    color: #4a7c23;
+    line-height: 1.2;
+}
+
+.scoreLabel {
+    color: #666;
+    font-size: 0.85rem;
+    display: block;
+}
+
+/* Responsive - Large Tablet */
+@media (max-width: 992px) {
+    .leaderboardSection {
+        padding: 60px 0;
+    }
+
+    .leaderboardGrid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+    .title {
+        font-size: 2rem;
+    }
+
+    .subtitle {
+        font-size: 1.1rem;
+    }
+}
+
+/* Responsive - Tablet - 1 COLUMN */
+@media (max-width: 768px) {
+    .leaderboardSection {
+        padding: 50px 0;
+    }
+
+    .container {
+        padding: 0 15px;
+    }
+
+    .header {
+        margin-bottom: 40px;
+    }
+
+    .title {
+        font-size: 1.8rem;
+    }
+
+    .subtitle {
+        font-size: 1rem;
+    }
+
+    /* 1 COLUMN FOR TABLET & MOBILE */
+    .leaderboardGrid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .leaderboard {
+        padding: 18px;
+    }
+
+    .leaderboardTitle {
+        font-size: 1.2rem;
+        margin-bottom: 18px;
+    }
+
+    .leaderboardItem {
+        padding: 10px 8px;
+        margin: 7px 0;
+    }
+
+    .badge {
+        min-width: 32px;
+        height: 32px;
+        font-size: 0.95rem;
+    }
+
+    .itemName {
+        font-size: 0.95rem;
+    }
+
+    .itemLocation {
+        display: none;
+    }
+
+    .scoreValue {
+        font-size: 1.05rem;
+    }
+
+    .scoreLabel {
+        font-size: 0.75rem;
+    }
+}
+
+/* Responsive - Mobile - 1 COLUMN, HORIZONTAL ITEM */
+@media (max-width: 480px) {
+    .leaderboardSection {
+        padding: 40px 0;
+    }
+
+    .container {
+        padding: 0 12px;
+    }
+
+    .title {
+        font-size: 1.5rem;
+    }
+
+    .subtitle {
+        font-size: 0.9rem;
+    }
+
+    /* 1 COLUMN ON MOBILE */
+    .leaderboardGrid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .leaderboard {
+        padding: 12px;
+        border-radius: 12px;
+    }
+
+    .leaderboardTitle {
+        font-size: 1rem;
+        margin-bottom: 12px;
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+
+    .trophy,
+    .star {
+        font-size: 1.3rem;
+    }
+
+    /* HORIZONTAL ITEM: nomor, nama, score */
+    .leaderboardItem {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: 8px 6px;
+        margin: 5px 0;
+        border-radius: 8px;
+        gap: 0;
+        min-height: unset;
+    }
+
+    .rankBadge {
+        margin-right: 8px;
+        margin-bottom: 0;
+    }
+
+    .badge {
+        min-width: 26px;
+        height: 26px;
+        font-size: 0.85rem;
+        padding: 0 6px;
+        border-radius: 6px;
+    }
+
+    .itemInfo {
+        flex: 1;
+        min-width: 0;
+        text-align: left;
+        margin-right: 8px;
+        display: flex;
+        align-items: center;
+    }
+
+    .itemName {
+        font-size: 0.92rem;
+        margin-bottom: 0;
+        font-weight: 600;
+        line-height: 1.2;
+        word-break: break-word;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 110px;
+    }
+
+    .itemLocation {
+        display: none;
+    }
+
+    .itemScore {
+        margin-left: 0;
+        margin-top: 0;
+        text-align: right;
+        min-width: 48px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: center;
+    }
+
+    .scoreValue {
+        font-size: 0.95rem;
+        font-weight: 700;
+        display: block;
+        margin-bottom: 0;
+        color: #4a7c23;
+    }
+
+    .scoreLabel {
+        display: none;
+    }
+
+    .leaderboardItem:hover,
+    .leaderboardItem:focus {
+        transform: translateX(2px);
+    }
+}
+
+/* Responsive - Very Small Mobile - 1 COLUMN */
+@media (max-width: 360px) {
+    .leaderboardGrid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .leaderboard {
+        padding: 8px;
+    }
+
+    .leaderboardTitle {
+        font-size: 0.95rem;
+        margin-bottom: 8px;
+        gap: 4px;
+    }
+
+    .trophy,
+    .star {
+        font-size: 1.1rem;
+    }
+
+    .leaderboardItem {
+        padding: 6px 3px;
+        gap: 0;
+    }
+
+    .badge {
+        min-width: 22px;
+        height: 22px;
+        font-size: 0.7rem;
+        padding: 0 4px;
+    }
+
+    .itemName {
+        font-size: 0.8rem;
+        max-width: 70px;
+    }
+
+    .scoreValue {
+        font-size: 0.8rem;
+    }
+}
+
+/* Landscape Mobile - Show 1 Column for Better Readability */
+@media (max-width: 768px) and (orientation: landscape) {
+    .leaderboardGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .leaderboard {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+}
+
+/* Touch Device Optimizations */
+@media (hover: none) and (pointer: coarse) {
+    .leaderboard:hover,
+    .leaderboardItem:hover {
+        transform: none;
+    }
+
+    .leaderboard:active {
+        transform: scale(0.98);
+    }
+
+    .leaderboardItem:active {
+        transform: translateX(3px);
+        background: linear-gradient(135deg, #8bc34a 0%, #4a7c23 100%);
+        color: white;
+    }
+
+    .leaderboardItem:active .itemName,
+    .leaderboardItem:active .itemLocation,
+    .leaderboardItem:active .scoreValue,
+    .leaderboardItem:active .scoreLabel {
+        color: white;
+    }
+}
+
+/* Accessibility - Reduce Motion */
+@media (prefers-reduced-motion: reduce) {
+    .leaderboard,
+    .leaderboardItem {
+        transition: none;
+    }
+
+    .leaderboard:hover,
+    .leaderboardItem:hover {
+        transform: none;
+    }
+}

@@ -1,0 +1,168 @@
+.container{
+    padding: 10px 18px;
+    display: flex;
+    justify-self: center;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(135deg, #f8fafc 0%, #e8f5e9 100%);
+    border-radius: 18px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    max-width: 320px;
+    margin: 32px auto;
+    gap: 12px;
+}
+
+.avatarWrapper {
+    background: linear-gradient(135deg, #a5d6a7 0%, #4a7c23 100%);
+    border-radius: 50%;
+    padding: 6px;
+    box-shadow: 0 2px 12px rgba(59,130,246,0.10);
+    margin-top: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.foto{
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border: 4px solid #e8f5e9;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    margin-top: 0;
+}
+
+.name {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #357a38;
+    margin-top: 18px;
+    margin-bottom: 2px;
+    letter-spacing: 0.5px;
+}
+
+.id{
+    display: flex;
+    margin-top: 15px;
+    align-items: center;
+    justify-content: space-around;
+    border: 1.5px solid #c5e1a5;
+    border-radius: 12px;
+    padding: 10px 14px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    min-width: 180px;
+    gap: 10px;
+    position: relative;
+}
+
+.noid {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.1rem;
+    color: #4a7c23;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.btn{
+    border: 0;
+    background-color: white;
+    background: none;
+    color: #388e3c;
+    cursor: pointer;
+    margin-left: 8px;
+    font-size: 1.2rem;
+    transition: color 0.2s;
+    border-radius: 6px;
+    padding: 4px 6px;
+}
+
+.btn:hover, .btn:focus {
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+
+.copied {
+    position: absolute;
+    right: 12px;
+    top: 100%;
+    font-size: 0.85rem;
+    color: #388e3c;
+    background: #e8f5e9;
+    border-radius: 6px;
+    padding: 2px 8px;
+    margin-top: 4px;
+    animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px);}
+    to { opacity: 1; transform: translateY(0);}
+}
+
+/* Mobile Responsive - Compact Profile */
+@media (max-width: 768px) {
+    .container {
+        padding: 8px 10px;
+        gap: 8px;
+        margin: 16px auto;
+        max-width: 100%;
+    }
+
+    .avatarWrapper {
+        margin-top: 16px;
+        padding: 4px;
+    }
+
+    .foto {
+        width: 70px;
+        height: 70px;
+        border: 3px solid #e8f5e9;
+    }
+
+    .name {
+        font-size: 0.9rem;
+        margin-top: 12px;
+    }
+
+    .id {
+        margin-top: 10px;
+        padding: 6px 10px;
+        min-width: 120px;
+        gap: 6px;
+    }
+
+    .noid {
+        font-size: 0.8rem;
+    }
+
+    .btn {
+        font-size: 0.9rem;
+        margin-left: 4px;
+        padding: 2px 4px;
+    }
+
+    .copied {
+        font-size: 0.7rem;
+        padding: 1px 6px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 6px 8px;
+    }
+
+    .foto {
+        width: 60px;
+        height: 60px;
+    }
+
+    .name {
+        font-size: 0.85rem;
+    }
+
+    .noid {
+        font-size: 0.75rem;
+    }
+}

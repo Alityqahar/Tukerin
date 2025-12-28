@@ -1,0 +1,150 @@
+.footer {
+    background: linear-gradient(120deg, #4a7c23 0%, #8bc34a 100%);
+    color: #fff;
+    padding: 56px 0 32px 0;
+    margin-top: 64px;
+    border-top-left-radius: 48px;
+    border-top-right-radius: 48px;
+    box-shadow: 0 -8px 32px rgba(74, 124, 35, 0.10);
+    position: relative;
+    z-index: 1;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 24px;
+    margin-bottom: 36px;
+}
+
+.col {
+    flex: 1;
+    min-width: 200px;
+    max-width: 300px;
+}
+
+.heading {
+    font-weight: bold;
+    margin-bottom: 18px;
+    letter-spacing: 1px;
+    color: #fff;
+    font-size: 1.35rem;
+}
+
+.text {
+    color: #f1f8e9;
+    font-size: 1.05rem;
+    letter-spacing: 0.2px;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+.text i {
+    margin-right: 8px;
+}
+
+.list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.list li {
+    margin-bottom: 8px;
+}
+
+.link {
+    color: #f1f8e9;
+    text-decoration: none;
+    font-size: 1.05rem;
+    letter-spacing: 0.2px;
+    transition: color 0.2s, transform 0.2s;
+    display: inline-block;
+}
+
+.link:hover {
+    color: #ffe082;
+    transform: translateX(5px);
+}
+
+.link i {
+    margin-right: 8px;
+}
+
+.socialLinks {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.socialIcon {
+    color: #fff;
+    font-size: 2.2rem;
+    transition: color 0.2s, transform 0.2s, text-shadow 0.2s;
+    text-shadow: 0 2px 8px rgba(104, 159, 56, 0.2);
+}
+
+.socialIcon:hover {
+    color: #ffe082;
+    transform: scale(1.13) rotate(-6deg);
+    text-shadow: 0 4px 16px rgba(139, 195, 74, 0.53);
+}
+
+.divider {
+    border: none;
+    height: 2px;
+    background: linear-gradient(90deg, #8bc34a 0%, #fff 50%, #8bc34a 100%);
+    margin: 36px 0 20px 0;
+    opacity: 0.7;
+}
+
+.copyright {
+    text-align: center;
+}
+
+.copyright small {
+    color: #e0e0e0;
+    font-size: 1rem;
+    letter-spacing: 0.7px;
+    font-weight: 500;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .footer {
+        padding: 36px 0 16px 0;
+        border-top-left-radius: 24px;
+        border-top-right-radius: 24px;
+    }
+
+    .heading {
+        font-size: 1.1rem;
+    }
+
+    .socialIcon {
+        font-size: 1.5rem;
+    }
+
+    .row {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .col {
+        max-width: 100%;
+    }
+}
+
+.logo{
+    width: 200px;
+    height: auto;
+    margin-bottom: 10px;
+}

@@ -1,0 +1,427 @@
+/* Hero Section */
+.heroSection {
+  background: linear-gradient(135deg, #2d5016 0%, #4a7c23 70%, #8bc34a 100%);
+  color: white;
+  padding: 100px 20px;
+  position: relative;
+  overflow: hidden;
+  background-size: cover;
+}
+
+/* New Animated Bubbles Background */
+.heroSection::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(135deg, #2d5016 0%, #4a7c23 70%, #8bc34a 100%);
+  opacity: 0.98;
+}
+
+.heroBubbles {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.heroBubble {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.13;
+  background: linear-gradient(135deg, #fff 0%, #8bc34a 100%);
+  animation: bubbleRise 12s linear infinite;
+  will-change: transform, opacity;
+}
+
+.heroBubble.b1 { left: 8%;  bottom: -80px; width: 90px; height: 90px; animation-delay: 0s; }
+.heroBubble.b2 { left: 38%; bottom: -100px; width: 60px; height: 60px; animation-delay: 2s; }
+.heroBubble.b3 { left: 65%; bottom: -120px; width: 120px; height: 120px; animation-delay: 4s; }
+.heroBubble.b4 { left: 80%; bottom: -70px; width: 50px; height: 50px; animation-delay: 6s; }
+.heroBubble.b5 { left: 20%; bottom: -60px; width: 40px; height: 40px; animation-delay: 8s; }
+
+@keyframes bubbleRise {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0.13;
+  }
+  70% {
+    opacity: 0.18;
+    transform: translateY(-60vh) scale(1.08);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-100vh) scale(1.15);
+  }
+}
+
+.heroContent {
+position: relative;
+z-index: 2;
+}
+
+/* Container */
+.container {
+max-width: 1200px;
+margin: 0 auto;
+padding: 0 20px;
+}
+
+.row {
+display: flex;
+align-items: center;
+gap: 60px;
+flex-wrap: wrap;
+}
+
+.colLeft,
+.colRight {
+flex: 1;
+min-width: 280px;
+}
+
+/* Hero Title */
+.heroTitle {
+font-size: clamp(2rem, 5vw, 3rem);
+font-weight: bold;
+margin-bottom: 1.5rem;
+line-height: 1.2;
+}
+
+/* Animations */
+.animateFadeIn {
+opacity: 0;
+animation: fadeIn 1s forwards;
+}
+
+.delay1 {
+animation-delay: 0.5s;
+}
+
+@keyframes fadeIn {
+to { opacity: 1; }
+}
+
+/* Typing Container */
+.typingContainer {
+font-size: clamp(1rem, 2.5vw, 1.3rem);
+min-height: 2.6em;
+margin-bottom: 1.5rem;
+}
+
+.typedText {
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+font-weight: 500;
+letter-spacing: 0.5px;
+}
+
+.cursor {
+animation: blink 0.8s steps(1) infinite;
+}
+
+@keyframes blink {
+0%, 100% { opacity: 1; }
+50% { opacity: 0; }
+}
+
+/* Hero Description */
+.heroDescription {
+font-size: clamp(1rem, 2vw, 1.25rem);
+margin-bottom: 2rem;
+line-height: 1.6;
+opacity: 0.95;
+}
+
+/* Hero Buttons */
+.heroButtons {
+display: flex;
+gap: 1rem;
+flex-wrap: wrap;
+}
+
+.btn {
+padding: 14px 32px;
+font-size: clamp(0.9rem, 2vw, 1.1rem);
+border-radius: 8px;
+border: none;
+cursor: pointer;
+font-weight: 600;
+transition: all 0.3s ease;
+display: inline-flex;
+align-items: center;
+justify-content: center;
+gap: 8px;
+min-width: 180px;
+}
+
+.btnLight {
+background: white;
+color: #2d5016;
+}
+
+.btnLight:hover {
+transform: translateY(-2px);
+box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.btnOutline {
+background: transparent;
+color: white;
+border: 2px solid white;
+}
+
+.btnOutline:hover {
+background: rgba(255,255,255,0.1);
+transform: translateY(-2px);
+}
+
+.icon {
+font-size: 1.2rem;
+}
+
+/* Eco Score Display */
+.ecoScoreDisplay {
+background: linear-gradient(135deg, #8bc34a 0%, #4a7c23 100%);
+color: white;
+padding: 30px;
+border-radius: 15px;
+text-align: center;
+}
+
+.treeVisual {
+font-size: clamp(3rem, 8vw, 4rem);
+margin-bottom: 1rem;
+}
+
+.treeIcon {
+display: inline-block;
+animation: sway 3s ease-in-out infinite;
+}
+
+@keyframes sway {
+0%, 100% { transform: rotate(-5deg); }
+50% { transform: rotate(5deg); }
+}
+
+.ecoTitle {
+font-size: clamp(1.2rem, 3vw, 1.5rem);
+margin-bottom: 0.5rem;
+font-weight: 600;
+}
+
+.ecoValue {
+font-size: clamp(2.5rem, 6vw, 3.5rem);
+font-weight: bold;
+margin: 1rem 0;
+}
+
+.ecoDescription {
+margin-bottom: 1rem;
+opacity: 0.9;
+font-size: clamp(0.9rem, 2vw, 1rem);
+}
+
+.progressEco {
+height: 10px;
+background: rgba(255,255,255,0.3);
+border-radius: 10px;
+overflow: hidden;
+margin-top: 1rem;
+}
+
+.progressFill {
+height: 100%;
+background: white;
+border-radius: 10px;
+transition: width 0.5s ease;
+}
+
+/* Decorative elements */
+/* .heroDecor {
+position: absolute;
+inset: 0;
+pointer-events: none;
+z-index: 1;
+}
+
+.heroDecor .leaf {
+position: absolute;
+width: 88px;
+height: 88px;
+opacity: 0.12;
+transform-origin: center;
+filter: blur(0.2px);
+animation: floatLeaf 6s ease-in-out infinite;
+}
+
+.heroDecor .leaf.leaf-1 { 
+right: 6%; 
+top: 8%; 
+background: radial-gradient(circle,#ffffff55,#ffffff00); 
+animation-delay: 0s; 
+}
+
+.heroDecor .leaf.leaf-2 { 
+left: 4%; 
+bottom: 6%; 
+background: radial-gradient(circle,#ffffff33,#ffffff00); 
+animation-delay: 1.4s; 
+transform: scale(0.8); 
+}
+
+.heroDecor .leaf.leaf-3 { 
+right: 18%; 
+bottom: 18%; 
+width: 120px; 
+height: 120px; 
+background: radial-gradient(circle,#ffffff20,#ffffff00); 
+animation-delay: 2.2s; 
+}
+
+@keyframes floatLeaf {
+0% { transform: translateY(0) rotate(0deg); opacity: 0.12; }
+50% { transform: translateY(-18px) rotate(6deg); opacity: 0.18; }
+100% { transform: translateY(0) rotate(0deg); opacity: 0.12; }
+} */
+
+/* Button styles */
+.btnPrimary {
+background: linear-gradient(90deg,#7bc043 0%, #4a7c23 100%);
+color: white;
+border-radius: 12px;
+padding: 12px 26px;
+font-weight: 700;
+box-shadow: 0 12px 30px rgba(30,70,20,0.16);
+transform-origin: center;
+transition: transform 190ms ease, box-shadow 190ms ease, filter 190ms ease;
+}
+
+.btnPrimary:hover { 
+transform: translateY(-6px) scale(1.02); 
+filter: saturate(1.05); 
+box-shadow: 0 20px 46px rgba(30,70,20,0.22); 
+}
+
+.btnGhost {
+background: transparent;
+color: white;
+border: 1.5px solid rgba(255,255,255,0.18);
+padding: 10px 22px;
+border-radius: 10px;
+transition: background 140ms ease, transform 140ms ease;
+}
+
+.btnGhost:hover { 
+background: rgba(255,255,255,0.06); 
+transform: translateY(-4px); 
+}
+
+/* Accessibility */
+.btnPrimary:focus, 
+.btnGhost:focus, 
+.btn:focus {
+outline: 3px solid rgba(123,192,67,0.16);
+outline-offset: 3px;
+}
+
+/* Responsive - Tablet */
+@media (max-width: 992px) {
+.heroSection {
+padding: 80px 20px;
+}
+
+.row {
+gap: 40px;
+}
+
+.heroButtons {
+gap: 0.8rem;
+}
+
+.btn {
+padding: 12px 24px;
+min-width: 160px;
+}
+}
+
+/* Responsive - Mobile */
+@media (max-width: 768px) {
+.heroSection {
+padding: 60px 15px;
+}
+
+.container {
+padding: 0 15px;
+}
+
+/* make layout vertical but keep buttons in a row and hide eco score on mobile */
+.row {
+gap: 30px;
+flex-direction: column;
+}
+
+/* Changed: keep buttons in a single row on mobile */
+.heroButtons {
+display: flex;
+flex-direction: row;
+gap: 0.75rem;
+flex-wrap: nowrap;
+justify-content: center;
+width: auto;
+}
+
+/* Changed: buttons shouldn't be full-width when in a row */
+.btn {
+width: auto;
+min-width: 140px;
+justify-content: center;
+padding: 12px 18px;
+min-width: unset;
+}
+
+/* Changed: hide eco score display on mobile */
+.ecoScoreDisplay {
+display: none;
+}
+
+/* existing mobile adjustments... */
+}
+
+/* Responsive - Small Mobile */
+@media (max-width: 480px) {
+.heroSection {
+padding: 40px 12px;
+}
+
+.container {
+padding: 0 12px;
+}
+
+/* Keep buttons in a row on small mobile as requested */
+.heroButtons {
+display: flex;
+flex-direction: row;
+gap: 0.6rem;
+justify-content: center;
+flex-wrap: nowrap;
+width: auto;
+}
+
+/* Ensure buttons remain compact on very small screens */
+.btn {
+width: auto;
+min-width: 120px;
+padding: 10px 14px;
+font-size: 0.95rem;
+}
+
+/* Ensure eco score hidden on very small screens as well */
+.ecoScoreDisplay {
+display: none;
+}
+
+/* ...existing code... */
+}
+
+/* ...existing code... */

@@ -1,0 +1,134 @@
+/* Reuse loginSection, bgDecor, circle1, circle2, circle3, loginContainer, rightPanel, formContainer dari Login.module.css jika perlu */
+
+.centeredBox {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.spinner {
+  width: 80px;
+  height: 80px;
+  border: 6px solid #e0e7ef;
+  border-top-color: #4a7c23;
+  border-radius: 50%;
+  margin: 0 auto 25px;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.successIcon {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #4a7c23, #8bc34a);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 25px;
+  font-size: 3rem;
+  color: white;
+  animation: scaleIn 0.5s cubic-bezier(0.2,0.9,0.3,1);
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.errorIcon {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #ef5350, #e53935);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 25px;
+  font-size: 3rem;
+  color: white;
+  animation: shake 0.5s;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-10px); }
+  75% { transform: translateX(10px); }
+}
+
+.title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #2d5016;
+  margin-bottom: 15px;
+}
+
+.titleSuccess {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #2d5016;
+  margin-bottom: 15px;
+}
+
+.titleError {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #c62828;
+  margin-bottom: 15px;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: #5a7c3c;
+  line-height: 1.6;
+  margin-bottom: 25px;
+}
+
+.loginBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  background: linear-gradient(135deg, #4a7c23, #8bc34a);
+  color: white;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 700;
+  transition: all 0.3s ease;
+  font-size: 1.05rem;
+}
+
+.actionRow {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.retryBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: white;
+  color: #4a7c23;
+  border: 2px solid #8bc34a;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.homeBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #4a7c23, #8bc34a);
+  color: white;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}

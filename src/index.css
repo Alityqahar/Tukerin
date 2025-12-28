@@ -1,0 +1,277 @@
+/* Global Styles - Base Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Root Variables for Responsive Typography */
+:root {
+  --font-base: 16px;
+  --container-padding: 20px;
+  --section-padding: 60px;
+}
+
+/* HTML & Body Base */
+html {
+  font-size: var(--font-base);
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  overflow-x: hidden;
+  min-width: 320px;
+}
+
+/* Container Styles */
+.container-fluid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 90vh;
+  width: 100%;
+  padding: 0 var(--container-padding);
+}
+
+/* Section Base Styles */
+section {
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 0;
+  padding-right: 0;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+/* Container Padding Reset */
+.container {
+  padding-left: 0;
+  padding-right: 0;
+  max-width: 100%;
+}
+
+/* Image Responsive */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Responsive Typography Base */
+h1 {
+  font-size: clamp(1.75rem, 5vw, 3rem);
+  line-height: 1.2;
+}
+
+h2 {
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  line-height: 1.3;
+}
+
+h3 {
+  font-size: clamp(1.25rem, 3vw, 2rem);
+  line-height: 1.4;
+}
+
+h4 {
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+  line-height: 1.4;
+}
+
+h5 {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  line-height: 1.5;
+}
+
+p {
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
+  line-height: 1.6;
+}
+
+/* Tablet Breakpoint */
+@media (max-width: 992px) {
+  :root {
+    --font-base: 15px;
+    --container-padding: 15px;
+    --section-padding: 50px;
+  }
+
+  .container-fluid {
+    min-height: 80vh;
+  }
+}
+
+/* Mobile Breakpoint */
+@media (max-width: 768px) {
+  :root {
+    --font-base: 14px;
+    --container-padding: 12px;
+    --section-padding: 40px;
+  }
+
+  body {
+    font-size: 14px;
+  }
+
+  .container-fluid {
+    min-height: auto;
+    padding: var(--container-padding);
+  }
+
+  /* Prevent horizontal scroll on mobile */
+  html, body {
+    overflow-x: hidden;
+    width: 100%;
+  }
+
+  section {
+    overflow-x: hidden;
+  }
+}
+
+/* Small Mobile Breakpoint */
+@media (max-width: 480px) {
+  :root {
+    --font-base: 14px;
+    --container-padding: 10px;
+    --section-padding: 30px;
+  }
+
+  h1 {
+    font-size: clamp(1.5rem, 6vw, 2.5rem);
+  }
+
+  h2 {
+    font-size: clamp(1.3rem, 5vw, 2rem);
+  }
+
+  h3 {
+    font-size: clamp(1.1rem, 4vw, 1.75rem);
+  }
+}
+
+/* Utility Classes - Responsive Padding */
+.p-responsive {
+  padding: var(--container-padding);
+}
+
+.py-responsive {
+  padding-top: var(--section-padding);
+  padding-bottom: var(--section-padding);
+}
+
+.px-responsive {
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+}
+
+/* Utility Classes - Responsive Display */
+.hide-mobile {
+  display: block;
+}
+
+.show-mobile {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .hide-mobile {
+    display: none;
+  }
+
+  .show-mobile {
+    display: block;
+  }
+}
+
+/* Utility Classes - Responsive Flex */
+.flex-responsive {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+@media (max-width: 768px) {
+  .flex-responsive {
+    flex-direction: column;
+  }
+}
+
+/* Prevent Text Selection Issues on Touch Devices */
+@media (hover: none) and (pointer: coarse) {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+/* Smooth Scrolling for Touch Devices */
+@media (hover: none) {
+  * {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Accessibility - Reduce Motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  * {
+    border-color: currentColor;
+  }
+}
+
+/* Focus Visible - Accessibility */
+*:focus-visible {
+  outline: 2px solid #4a7c23;
+  outline-offset: 2px;
+}
+
+/* Print Styles */
+@media print {
+  *,
+  *::before,
+  *::after {
+    background: transparent !important;
+    color: #000 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  a,
+  a:visited {
+    text-decoration: underline;
+  }
+
+  img {
+    page-break-inside: avoid;
+  }
+
+  h2,
+  h3,
+  p {
+    orphans: 3;
+    widows: 3;
+  }
+
+  h2,
+  h3 {
+    page-break-after: avoid;
+  }
+}

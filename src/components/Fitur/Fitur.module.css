@@ -1,0 +1,288 @@
+.fiturSection {
+    padding: 80px 0;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header */
+.header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: #666;
+    margin: 0;
+}
+
+/* Features Grid */
+.featuresGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+/* Feature Card */
+.featureCard {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: transform 750ms cubic-bezier(0.2, 0.9, 0.3, 1), box-shadow 750ms ease;
+    border: none;
+    height: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform-origin: center center;
+}
+
+.featureCard:hover {
+    transform: scale(1.04);
+    box-shadow: 0 22px 44px rgba(0, 0, 0, 0.14);
+}
+
+/* Feature Icon */
+.featureIcon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #8bc34a, #4a7c23);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 2rem;
+    color: white;
+    transition: transform 220ms ease;
+}
+
+.featureCard:hover .featureIcon {
+    transform: scale(1.10);
+}
+
+.featureIcon i {
+    display: block;
+}
+
+/* Feature Title */
+.featureTitle {
+    font-weight: bold;
+    font-size: 1.3rem;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* Feature Description */
+.featureDescription {
+    color: #666;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Responsive - Large Tablet */
+@media (max-width: 992px) {
+    .fiturSection {
+        padding: 60px 0;
+    }
+
+    .featuresGrid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 25px;
+    }
+
+    .title {
+        font-size: 2rem;
+    }
+
+    .subtitle {
+        font-size: 1.1rem;
+    }
+}
+
+/* Responsive - Tablet */
+@media (max-width: 768px) {
+    .fiturSection {
+        padding: 50px 0;
+    }
+
+    .container {
+        padding: 0 15px;
+    }
+
+    .header {
+        margin-bottom: 40px;
+    }
+
+    .title {
+        font-size: 1.8rem;
+    }
+
+    .subtitle {
+        font-size: 1rem;
+    }
+
+    /* 2 COLUMNS FOR TABLET */
+    .featuresGrid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .featureCard {
+        padding: 25px 18px;
+        border-radius: 18px;
+    }
+
+    .featureIcon {
+        width: 70px;
+        height: 70px;
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+    }
+
+    .featureTitle {
+        font-size: 1.15rem;
+    }
+
+    .featureDescription {
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+}
+
+/* Responsive - Mobile - KEEP 2 COLUMNS */
+@media (max-width: 480px) {
+    .fiturSection {
+        padding: 40px 0;
+    }
+
+    .container {
+        padding: 0 12px;
+    }
+
+    .header {
+        margin-bottom: 30px;
+    }
+
+    .title {
+        font-size: 1.5rem;
+    }
+
+    .subtitle {
+        font-size: 0.9rem;
+    }
+
+    /* MAINTAIN 2 COLUMNS ON MOBILE */
+    .featuresGrid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .featureCard {
+        padding: 18px 10px;
+        border-radius: 16px;
+    }
+
+    .featureIcon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+        margin-bottom: 12px;
+    }
+
+    .featureTitle {
+        font-size: 0.95rem;
+        margin-bottom: 8px;
+        line-height: 1.3;
+    }
+
+    .featureDescription {
+        font-size: 0.8rem;
+        line-height: 1.4;
+    }
+}
+
+/* Responsive - Very Small Mobile - STILL 2 COLUMNS */
+@media (max-width: 360px) {
+    .featuresGrid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .featureCard {
+        padding: 15px 8px;
+        border-radius: 14px;
+    }
+
+    .featureIcon {
+        width: 55px;
+        height: 55px;
+        font-size: 1.4rem;
+        margin-bottom: 10px;
+    }
+
+    .featureTitle {
+        font-size: 0.9rem;
+        line-height: 1.2;
+    }
+
+    .featureDescription {
+        font-size: 0.75rem;
+        line-height: 1.3;
+    }
+}
+
+/* Landscape Mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+    .featuresGrid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Touch Device Optimizations */
+@media (hover: none) and (pointer: coarse) {
+    .featureCard:hover {
+        transform: none;
+    }
+
+    .featureCard:active {
+        transform: scale(0.98);
+    }
+
+    .featureCard:hover .featureIcon {
+        transform: none;
+    }
+
+    .featureCard:active .featureIcon {
+        transform: scale(1.05);
+    }
+}
+
+/* Accessibility - Reduce Motion */
+@media (prefers-reduced-motion: reduce) {
+    .featureCard,
+    .featureIcon {
+        transition: none;
+    }
+
+    .featureCard:hover,
+    .featureCard:hover .featureIcon {
+        transform: none;
+    }
+}
