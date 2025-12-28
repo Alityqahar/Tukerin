@@ -12,10 +12,15 @@ const Overview = () => {
 const mapRef = useRef<HTMLDivElement>(null);
 
 useEffect(() => {
-// Inisialisasi Leaflet Map
 if (mapRef.current && typeof window !== 'undefined') {
-    // Cek jika Leaflet sudah dimuat
     if (window.L) {
+    delete (window.L.Icon.Default.prototype as any)._getIconUrl;
+    window.L.Icon.Default.mergeOptions({
+        iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
+        iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
+        shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+    });
+
     const map = window.L.map(mapRef.current, {
         zoomControl: false,
         scrollWheelZoom: false
@@ -30,6 +35,17 @@ if (mapRef.current && typeof window !== 'undefined') {
         position: 'topright'
     }).addTo(map);
 
+    // ✅ FIX 2: Custom icon dengan CDN path (alternatif)
+    const customIcon = window.L.icon({
+        iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
+        iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
+        shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+    });
+
     // Data sekolah
     const schools = [
         { name: 'MAN Insan Cendekia OKI', lat: -3.385, lng: 104.830, score: 5000, students: 800 },
@@ -42,22 +58,31 @@ if (mapRef.current && typeof window !== 'undefined') {
         { name: 'SMAN 2 Denpasar', lat: -8.7, lng: 115.2, score: 2654, students: 834 }
     ];
 
-    // Tambahkan marker untuk setiap sekolah
+    // Tambahkan marker dengan custom icon
     schools.forEach(school => {
-        const marker = window.L.marker([school.lat, school.lng])
-            .addTo(map)
-            .bindPopup(`<b>${school.name}</b><br>Eco-Score: ${school.score}`);
+        const marker = window.L.marker([school.lat, school.lng], { 
+        icon: customIcon // ✅ Gunakan custom icon
+        })
+        .addTo(map)
+        .bindPopup(`<b>${school.name}</b><br>Eco-Score: ${school.score}`);
+        
         marker.on('mouseover', () => {
-            marker.openPopup();
+        marker.openPopup();
         });
     });
 
     // Fix responsivitas
     setTimeout(() => map.invalidateSize(), 0);
-    window.addEventListener('resize', () => setTimeout(() => map.invalidateSize(), 0));
+    
+    const handleResize = () => {
+        setTimeout(() => map.invalidateSize(), 0);
+    };
+    
+    window.addEventListener('resize', handleResize);
 
     // Cleanup
     return () => {
+        window.removeEventListener('resize', handleResize);
         map.remove();
     };
     }
