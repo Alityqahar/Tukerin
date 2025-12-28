@@ -1,6 +1,8 @@
 import styles from './Leaderboard.module.css';
 import LeaderboardItem from './LeaderboardItem';
 
+type BadgeType = 'primary' | 'danger' | 'warning' | 'light';
+
 const Leaderboard = () => {
 const topSchools = [
 {
@@ -50,7 +52,7 @@ const topContributors = [
 },
 {
     rank: 2,
-    name: 'Saskia Najuwa',
+    name: 'Andy Pramono',
     school: 'MAN Insan Cendekia OKI',
     points: 267,
     badge: 'danger'
@@ -103,7 +105,7 @@ return (
                 subtitle={s.location}
                 value={s.score}
                 valueLabel="Eco-Score"
-                badge={s.badge as any}
+                badge={s.badge as BadgeType}
             />
             ))}
         </div>
@@ -124,7 +126,7 @@ return (
                 subtitle={c.school}
                 value={c.points}
                 valueLabel="Eco-Points"
-                badge={c.badge as any}
+                badge={c.badge as BadgeType}
             />
             ))}
         </div>
